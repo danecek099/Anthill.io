@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="500"
+   height="500"
+   viewBox="0 0 132.29166 132.29167"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="C:\Users\danie\OneDrive\anthil.io-anotherServerRemake\nginx\app\client\obr\texture3.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="texture3.svg">
+  <defs
+     id="defs2">
+    <meshgradient
+       y="159.41666"
+       x="-9.0714283"
+       gradientUnits="userSpaceOnUse"
+       id="meshgradient6191"
+       inkscape:collect="always"
+       gradientTransform="translate(6.8035714,-0.7559524)">
+      <meshrow
+         id="meshrow16173">
+        <meshpatch
+           id="meshpatch16175">
+          <stop
+             path="c 180.671,-43.8453  102.812,0.00102007  151.947,0.00102007"
+             style="stop-color:#5cfe00;stop-opacity:1"
+             id="stop16177" />
+          <stop
+             path="c -0.755938,53.9245  -0.00128759,98.7747  0.000206787,148.167"
+             style="stop-color:#44fdff;stop-opacity:1"
+             id="stop16179" />
+          <stop
+             path="c -149.678,41.5782  -101.301,-0.00152567  -151.947,-0.00134832"
+             style="stop-color:#aa1ce3;stop-opacity:1"
+             id="stop16181" />
+          <stop
+             path="c -0.00547214,-49.3909  -0.00422926,-98.7766  0,-148.167"
+             style="stop-color:#44fdff;stop-opacity:1"
+             id="stop16183" />
+        </meshpatch>
+      </meshrow>
+    </meshgradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-560"
+     inkscape:cy="17.180456"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showguides="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-164.70832)">
+    <rect
+       style="fill:url(#meshgradient6191);fill-opacity:1;stroke-width:0.26458332"
+       id="rect4485"
+       width="151.94643"
+       height="148.16667"
+       x="-2.2678564"
+       y="158.66071" />
+  </g>
+</svg>

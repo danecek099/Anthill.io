@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <title>Anthill.io</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="js/style.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89601236-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-89601236-2');
+    </script>
+
+    <script async src="//api.adinplay.com/display/pub/ANT/anthill-io.eu/display.min.js"></script>
+    <script async src="//api.adinplay.com/player/v2/ANT/anthill-io.eu/player.min.js"></script>
+    <script>
+        var aiptag = aiptag || {};
+        aiptag.consented = true; //GDPR setting, please set this value to false if an EU user has declined or not yet accepted marketing cookies, for users outside the EU please use true
+        aiptag.cmd = aiptag.cmd || [];
+        aiptag.cmd.display = aiptag.cmd.display || [];
+        aiptag.cmd.player = aiptag.cmd.player || [];
+
+        aiptag.cmd.player.push(function () {
+			adplayer = new aipPlayer({
+				AD_WIDTH: 960, // 960
+				AD_HEIGHT: 540, // 540
+				AD_FULLSCREEN: false,
+				AD_CENTERPLAYER: false,
+				LOADING_TEXT: 'loading advertisement',
+				PREROLL_ELEM: function () {
+					return document.getElementById('preroll')
+				},
+				AIP_COMPLETE: function () {
+					/*******************
+					 ***** WARNING *****
+					 *******************
+					 Please do not remove the PREROLL_ELEM
+					 from the page, it will be hidden automaticly.
+					 If you do want to remove it use the AIP_REMOVE callback
+					*/
+					// alert("Ad Completed");
+				},
+				AIP_REMOVE: function () {
+					// Here it's save to remove the PREROLL_ELEM from the page
+					// But it's not necessary
+				}
+			});
+		});
+    </script>
+</head>
+
+<body>
+
+    <div class="loading">
+        <p>
+            Loading...
+        </p>
+    </div>
+
+    <input type="text" id="nameInput" class="inp">
+
+    <div id="cookie">
+        <span>
+            This site uses cookies
+        </span>
+        <button onclick="cookieOk()">Ok</button>
+        <a href="cookies.html">More information</a>
+    </div>
+
+    <div id="txtR">
+        <div class="center">
+            <span class="h">Changelog</span>
+        </div>
+        <div class="content">
+            <p class="big">14.6.18</p>
+            <p class="small">
+                - Destroying units and buildings will return half of the price<br>
+                - Building can no longer be placed over each other<br>
+                - Destroying farm will decrease unit max count
+            </p>
+            <p class="big">13.6.18</p>
+            <p class="small">
+                - Common update
+            </p>
+            <p class="big">2.6.18</p>
+            <p class="small">
+                - Restricted max farm count to 6
+            </p>
+            <p class="big">24.5.18</p>
+            <p class="small">
+                - Resource icons changed
+            </p>
+            <p class="big">22.5.18</p>
+            <p class="small">
+                - Added new building: Heal building
+            </p>
+            <p class="big">20.5.18</p>
+            <p class="small">
+                - Quick help box added<br>
+                - Error submit form
+            </p>
+            <p class="big">15.5.18</p>
+            <p class="small">
+                - Server response improvements
+            </p>
+        </div>
+    </div>
+
+    <div id="txtR1">
+        <div class="center">
+            <span class="h">Description</span>
+        </div>
+        <div>
+            <p>
+                Anthill.io is about building a great base and destroying your opponents.
+                You are in charge of an army of ants, collecting resources to build walls and defenses to keep your Headquarters safe.
+            </p>
+        </div>
+    </div>
+
+
+    <div id='anthill-io-eu_300x250'>
+        <script type='text/javascript'>
+            aiptag.cmd.display.push(function () {
+                aipDisplayTag.display('anthill-io-eu_300x250');
+            });
+        </script>
+    </div>
+
+    <div id='anthill-io-eu_728x90'>
+        <script type='text/javascript'>
+            aiptag.cmd.display.push(function () {
+                aipDisplayTag.display('anthill-io-eu_728x90');
+            });
+        </script>
+    </div>
+
+    <div id="preroll"></div>
+
+</body>
+
+<script src="js/pixi-4.8.min.js"></script>
+<script src="js/smoothie.js"></script>
+<script src="js/tink.js"></script>
+<script src="js/require.js"></script>
+<script src="js/parser.js"></script>
+<script src="js/socket.io.js"></script>
+<script src="js/sc-v4.js"></script>
+
+<script>
+
+    const game = new TheGame();
+
+    cookieShow();
+</script>
+
+</html>

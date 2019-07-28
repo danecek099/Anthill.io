@@ -1,0 +1,49 @@
+const {chunksToLinesAsync} = require('@rauschma/stringio');
+
+const child = require('child_process').spawn(
+	'java', ['-jar', 'javatest/oof.jar', ''], {
+		stdio: ["pipe", "pipe", "pipe"]
+	}
+);
+
+// child.stdout.on('data', (d) => {
+// 	const obj = JSON.parse(d);
+// 	console.log("stdData:", obj);
+// });
+
+child.stderr.on('data', (d) => {
+  	console.log("err:", d.toString());
+});
+
+child.on('close', (e) => {
+  	console.log("close:", e);
+});
+
+const gameO = {
+	dX: 4,
+	dY: 4,
+	dS: 3
+}
+const gameO1 = {
+	dX: 4,
+	dY: 5,
+	dS: 6
+}
+
+echoReadable(child.stdout);
+
+child.stdin.write(JSON.stringify(["addObject", gameO]) + "\n");
+child.stdin.write(JSON.stringify(["findPath", 1, {x1: 5, y1: 0, x2: 5, y2: 8, s: 3, attack: true}]) + "\n");
+
+// for (let i = 0; i < 20; i++) {
+// 	for (let j = 0; j < 20; j++) {
+// 		const ufu = ["addObject", i+j, gameO, gameO1];
+// 		child.stdin.write(JSON.stringify(ufu) + "\n");
+//     }
+// }
+
+async function echoReadable(readable) {
+	for await (const line of chunksToLinesAsync(readable)) {
+		console.log('LINE:', JSON.parse(line))
+	}
+}

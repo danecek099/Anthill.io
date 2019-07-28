@@ -1,0 +1,53 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "javatest3.oof.src.main.java.oof.App",
+            "projectName": "Anthill 1.0_d32de528"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "oof.App",
+            "projectName": "oof"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ExampleUsage",
+            "request": "launch",
+            "mainClass": "pathfinding.ExampleUsage",
+            "projectName": "Anthill 1.0_d32de528"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "javatest.Main",
+            "projectName": "Anthill 1.0_d32de528"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "javaTest.Main",
+            "projectName": "Anthill 1.0_d32de528"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "java.Main",
+            "projectName": "Anthill 1.0_d32de528"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Java",
+            "request": "launch",
+            "mainClass": "java.Java",
+            "projectName": "Anthill 1.0_d32de528"
+        }
+    ]
+}

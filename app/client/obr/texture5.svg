@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="500"
+   height="500"
+   viewBox="0 0 132.29166 132.29167"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="C:\Users\danie\OneDrive\anthil.io-anotherServerRemake\nginx\app\client\obr\texture5a.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="texture5.svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient17623"
+       osb:paint="gradient">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop17619" />
+      <stop
+         style="stop-color:#1f00ff;stop-opacity:1"
+         offset="1"
+         id="stop17621" />
+    </linearGradient>
+    <meshgradient
+       inkscape:collect="always"
+       id="meshgradient20071"
+       gradientUnits="userSpaceOnUse"
+       x="-9.0714283"
+       y="159.41666"
+       gradientTransform="translate(-321.27976,114.14881)">
+      <meshrow
+         id="meshrow21381">
+        <meshpatch
+           id="meshpatch21383">
+          <stop
+             path="c 85.4226,-13.6071  127.757,-37.7976  178.404,-37.7976"
+             style="stop-color:#e6e800;stop-opacity:1"
+             id="stop21385" />
+          <stop
+             path="c -0.000428569,49.3889  -24.9464,110.119  -26.458,185.965"
+             style="stop-color:#00ecff;stop-opacity:1"
+             id="stop21387" />
+          <stop
+             path="c -86.1789,6.80657  -130.782,34.0216  -181.428,34.0209"
+             style="stop-color:#ff0d00;stop-opacity:1"
+             id="stop21389" />
+          <stop
+             path="c 0.00214288,-49.3889  27.2161,-109.363  29.482,-182.188"
+             style="stop-color:#00fff8;stop-opacity:1"
+             id="stop21391" />
+        </meshpatch>
+      </meshrow>
+    </meshgradient>
+    <meshgradient
+       y="197.36203"
+       x="-187.36624"
+       gradientUnits="userSpaceOnUse"
+       id="meshgradient24245"
+       inkscape:collect="always"
+       gradientTransform="matrix(1.2962962,0,0,1.2962962,242.04473,-86.040084)">
+      <meshrow
+         id="meshrow25555">
+        <meshpatch
+           id="meshpatch25557">
+          <stop
+             path="c 58.5659,-10.0922  77.8366,-3.92749  102.7,-3.92749"
+             style="stop-color:#e6e800;stop-opacity:1"
+             id="stop25559" />
+          <stop
+             path="c -0.000210389,22.912  5.14039,44.2822  0.618192,102.902"
+             style="stop-color:#00ecff;stop-opacity:1"
+             id="stop25561" />
+          <stop
+             path="c -55.157,4.6713  -77.809,-0.846364  -102.672,-0.846664"
+             style="stop-color:#ff0d00;stop-opacity:1"
+             id="stop25563" />
+          <stop
+             path="c 0.00105196,-22.912  -4.78216,-40.9074  -0.646191,-98.1278"
+             style="stop-color:#00fff8;stop-opacity:1"
+             id="stop25565" />
+        </meshpatch>
+      </meshrow>
+    </meshgradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-382.26511"
+     inkscape:cy="153.82085"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showguides="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-164.70832)">
+    <rect
+       style="fill:url(#meshgradient20071);fill-opacity:1;fill-rule:nonzero;stroke-width:0.26458332"
+       id="rect4485"
+       width="151.94643"
+       height="148.16667"
+       x="-330.3512"
+       y="273.56546" />
+    <circle
+       style="opacity:1;fill:url(#meshgradient24245);fill-opacity:1;fill-rule:nonzero;stroke-width:0.34297833"
+       id="path24207"
+       cx="66.145836"
+       cy="230.85416"
+       r="66.145836" />
+  </g>
+</svg>
