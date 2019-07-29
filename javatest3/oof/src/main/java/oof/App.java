@@ -19,9 +19,9 @@ import java.util.List;
 
 public final class App {
 
-    static int gameW = 200;
+    static int gameW = 1000;
     static int gridRess = 20;
-    static int gameBorder = 20;
+    static int gameBorder = 100;
 
     static Map<ExampleNode> myMap;
     static int sizeD;
@@ -173,7 +173,54 @@ public final class App {
                 }
             }
         }
+
         return null;
+    }
+
+    private static void findPointEx(JsonArray array){
+        Collection collection = new ArrayList();
+        collection.add(g.fromJson(array.get(1), int.class));
+        Point in = g.fromJson(array.get(2), Point.class);
+
+        in.x = Math.round(in.x / gridRess);
+        in.y = Math.round(in.y / gridRess);
+        Point res = findPoint(in.x, in.y);
+        res.set(
+            res.x * gridRess,
+            res.y * gridRess
+        );
+        
+        collection.add(res);
+        System.out.println(g.toJson(collection));
+    }
+
+    private static Point randPos(int dS){
+        int dX = (int) (Math.random() * (resGcW - 2 * dS - 1)) + resGcA;
+        int dY = (int) (Math.random() * (resGcW - 2 * dS - 1)) + resGcA;
+
+        for(int x = dX; x < dX + dS; x++){
+            for(int y = dY; y < dY + dS; y++){
+                
+                if(!myMap.isWalkableAt(x, y)) return null;
+            }
+        }
+
+        return new Point(dX, dY);
+    }
+
+    private static void findFreePos(JsonArray array){
+        Collection collection = new ArrayList();
+        collection.add(g.fromJson(array.get(1), int.class));
+        int dS = g.fromJson(array.get(2), JustDs.class).dS;
+        Point res = null;
+
+        while(res == null){
+            Point ret = randPos(dS);
+            if(ret != null) res = ret;
+        }
+
+        collection.add(res);
+        System.out.println(g.toJson(collection));
     }
 
     private static void startThatShit(){
@@ -189,7 +236,6 @@ public final class App {
         while(true){
             try {
                 String json = buff.readLine();
-                // JsonOof j = g.fromJson(message, JsonOof.class);
                 JsonParser parser = new JsonParser();
                 JsonArray array = parser.parse(json).getAsJsonArray();
 
@@ -204,6 +250,12 @@ public final class App {
                     break;
                     case "findPath":
                         findPath(array);
+                    break;
+                    case "findPointEx":
+                        findPointEx(array);
+                    break;
+                    case "findFreePos":
+                        findFreePos(array);
                     break;
 
                     default:

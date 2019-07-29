@@ -11,12 +11,12 @@ class Point {
 
     public void set(Point p){
         this.x = p.x;
-        this.x = p.y;
+        this.y = p.y;
     }
 
     public void set(int i, int j){
         this.x = i;
-        this.x = j;
+        this.y = j;
     }
 
     public String toString(){
