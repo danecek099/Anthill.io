@@ -8,14 +8,6 @@ class PathPoints {
     public int s;
     public boolean attack;
 
-    public Point getStartD(){
-        return new Point(x1, y1);
-    }
-
-    public Point getEndD(){
-        return new Point(x2, y2);
-    }
-
     public String toString(){
         return x1 + ", " + y1 + "; " + x2 + ", " + y2;
     }

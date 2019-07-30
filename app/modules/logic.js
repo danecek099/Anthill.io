@@ -5,7 +5,8 @@
  */
 
 const Settings = require('./public/gameMainProperties').Settings;
-const Path = require("./pather");
+// const Path = require("./pather");
+const Path = require("./javaPather");
 const JSONParser = require('socket.io-json-parser');
 const Sio = require('socket.io');
 const Bot = require("./bot");
@@ -66,10 +67,11 @@ class GameO {
         } else {
             this.id = ++GameO.id;
         }
+
         this.spawnPoint = {
             x: this.x,
             y: this.y
-        };
+        }
     }
     get x() {
         return this.dX * S.gridRess + S.gameOGapPx;
@@ -93,6 +95,13 @@ class GameO {
             dmgVal: this.dmgVal,
 
             name: this.name
+        }
+    }
+    get propsD() {
+        return {
+            dX: this.dX,
+            dY: this.dY,
+            dS: this.dS
         }
     }
 }
@@ -245,7 +254,7 @@ class Room {
                     }
                 }
 
-                this.path.addObject([base]);
+                this.path.addObject([base.propsD]);
 
                 this.io.in(this.id).emit("newBase", base.props);
                 // this.io.in(this.id).emit("newBase", {props: base.props, owner: socket.id, reqId: data.reqId});
@@ -324,7 +333,7 @@ class Room {
     
             this.player42.antArr.removeByOwnerS(socket.id);
             const a = this.player42.gameOArr.removeByOwnerS(socket.id);
-            this.path.removeObject(a);
+            this.path.removeObject(a.propsD());
             this.io.in(this.id).emit("onDis", socket.id);
             this.player42.do("onDis", socket.id);
 
@@ -356,7 +365,7 @@ class Room {
                 const to1 = this.player42.gameOArr.getById(data.id);
                 if(to1 && to1.owner == socket.id){
                     this.player42.gameOArr.removeByIdS(data.id);
-                    this.path.removeObject([to1]);
+                    this.path.removeObject([to1.propsD]);
                     this.io.in(this.id).emit("destroyed", data);
 
                     const stats = this.playaArr.getById(socket.id).stats;
@@ -467,7 +476,8 @@ class Room {
         return new Promise((jo, ne) => {
             this.path.findPointEx(data.x, data.y).then(res => {
                 if (res) {
-                    let [x, y] = res;
+
+                    let {x, y} = res;
                     this.player42.antArr.forEach(ant => {
                         if (ant.x == x && ant.y == y) {
                             x += 1;
@@ -500,7 +510,8 @@ class Room {
             const o = new GameO(gameO);
             gameOArr.push(o);
         });
-        this.path.addObject(gameOArr, false);
+        // console.log(gameOArr.propsD());
+        this.path.addObject(gameOArr.propsD());
 
         this.goldGameO = S.gameObjects.length;
 
@@ -511,7 +522,7 @@ class Room {
             promArr.push(new Promise((jo) => {
                 this.path.findFreePos(S.gameO[type].dS).then(pos => {
                     if (pos) {
-                        const [dX, dY] = pos;
+                        const {x: dX, y: dY} = pos;
     
                         const o = new GameO({
                             dX,
@@ -520,8 +531,8 @@ class Room {
                             owner: "default"
                         });
                         gameOArr.push(o);
-                        // nebude pokaždé počítat grid
-                        this.path.addObject([o], false);
+
+                        this.path.addObject([o.propsD]);
                     } else console.log("se nevešla", i);
 
                     jo();
@@ -531,9 +542,7 @@ class Room {
 
         this.player42 = new Bot(this.id);
 
-        Promise.all(promArr).then(() => {
-            this.path.addObject([]); // vypočítá grid
-            
+        Promise.all(promArr).then(() => {            
             this.player42.do("start", {
                 g: gameOArr.propsS()
             });
@@ -556,7 +565,7 @@ class Room {
                             break;
                         case "gameO":
                             playa.gameOCount--;
-                            this.path.removeObject([to]);
+                            this.path.removeObject([to.propsD]);
 
                             break;
                         }

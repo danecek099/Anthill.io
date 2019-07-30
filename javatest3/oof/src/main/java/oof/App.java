@@ -19,7 +19,7 @@ import java.util.List;
 
 public final class App {
 
-    static int gameW = 1000;
+    static int gameW = 10000;
     static int gridRess = 20;
     static int gameBorder = 100;
 
@@ -79,8 +79,14 @@ public final class App {
             System.out.println(g.toJson(collection));
         };
 
-        Point start = p.getStartD();
-        Point end = p.getEndD();
+        Point start = new Point(
+            p.x1 / gridRess,
+            p.y1 / gridRess
+        );
+        Point end = new Point(
+            p.x2 / gridRess,
+            p.y2 / gridRess
+        );
 
         // collider s hranou plochy
         if(end.x > resGcW || end.y > resGcW || end.x < resGcA || end.y < resGcA) {
@@ -139,17 +145,23 @@ public final class App {
         }
 
         List<ExampleNode> path = myMap.findPath(start.x, start.y, end.x, end.y);
-        path = toReal(path);
+        // path = toReal(path);
 
-        int pSize = path.size();
-        for (int i = 0; i < pSize; i++) {
-            collection.add(path.get(i).getAsPoint());
-        }
-
+        // int pSize = path.size();
+        // for (int i = 0; i < pSize; i++) {
+        //     collection.add(path.get(i).getAsArray());
+        // }
+        
+        path.forEach((node) -> {
+            collection.add(new int[]{
+                node.getxPosition() * gridRess,
+                node.getyPosition() * gridRess
+            });
+        });
+        
         if(p.attack) collection.add("target");
 
         System.out.println(g.toJson(collection));
-        System.out.println(g.toJson(myMap.drawMap()));
     }
 
     private static List<ExampleNode> toReal(List<ExampleNode> array){

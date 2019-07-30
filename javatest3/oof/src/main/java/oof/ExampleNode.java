@@ -22,4 +22,8 @@ public class ExampleNode extends AbstractNode {
         return new Point(xPosition, yPosition);
     }
 
+    public int[] getAsArray(){
+        return new int[]{xPosition, yPosition};
+    }
+
 }
