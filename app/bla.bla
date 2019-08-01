@@ -1,0 +1,13 @@
+-* ta cesta se musí výrazně smoothnout
+    - asi si to napíšu sám, nakonec to není tak těžký
+    - eazy
+
+-*? gameO jsou zas nějak posunutý směrem dolu
+    - noo a teď mi nejde zaměrit gO s lichým dS
+    - špatně si vybíraj nejbližší bod u gO
+    - noo jakože prcat celkem
+
+-* když je první cesta do mainGo tak to crashne
+    -  start a end se rovnal
+
+-> při změně roomky se neresetne Calculating sign

@@ -128,7 +128,7 @@ class Path {
                 //                                         + 1 fix 1.5.18
                 for(let i = x2 - half + mod; i <= x2 + half + 1; i++){
                     for(let j = y2 - half + mod; j <= y2 + half + 1; j++){
-                        if(clone.isWalkableAt(i ,j)){
+                        if(clone.isWalkableAt(i, j)){
                             //console.log("ij", i, j);
                             let vx = Math.abs(i - x),
                                 vy = Math.abs(j - y),

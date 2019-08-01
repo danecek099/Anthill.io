@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -42,8 +43,8 @@ public final class App {
         for (int i = 1; i < size; i++) {
             GameO gO = g.fromJson(array.get(i), GameO.class);
 
-            for (int j = 0; j < gO.dS; j++) {
-                for (int k = 0; k < gO.dS; k++) {
+            for (int j = 0; j <= gO.dS; j++) {
+                for (int k = 0; k <= gO.dS; k++) {
                     myMap.setWalkable(gO.dX + j, gO.dY + k, true);
                 }
             }
@@ -56,8 +57,8 @@ public final class App {
         for (int i = 1; i < size; i++) {
             GameO gO = g.fromJson(array.get(i), GameO.class);
 
-            for (int j = 0; j < gO.dS; j++) {
-                for (int k = 0; k < gO.dS; k++) {
+            for (int j = 0; j <= gO.dS; j++) {
+                for (int k = 0; k <= gO.dS; k++) {
                     myMap.setWalkable(gO.dX + j, gO.dY + k, false);
                 }
             }
@@ -118,11 +119,11 @@ public final class App {
                 Point point = null;
 
                 int half = Math.round(p.s / 2);
-                int mod = p.s % 2 == 0 ? -1 : 0;
+                int mod = p.s % 2 == 0 ? 0 : -1;
 
                 for(int i = end.x - half + mod; i <= end.x + half + 1; i++){
                     for(int j = end.y - half + mod; j <= end.y + half + 1; j++){
-                        if(myMap.isWalkableAt(i ,j)){
+                        if(myMap.isWalkableAt(i, j)){
                             int vx = Math.abs(i - start.x),
                                 vy = Math.abs(j - start.y);
                             double magnitude = Math.sqrt(vx * vx + vy * vy);
@@ -144,34 +145,60 @@ public final class App {
             }
         }
 
+        if(start.equals(end)){
+            e.end("start == end");
+            return;
+        }
+        
         List<ExampleNode> path = myMap.findPath(start.x, start.y, end.x, end.y);
-        // path = toReal(path);
+        if(path.size() == 0) {
+            e.end("no path");
+            return;
+        } else if(path.size() < 3) {
+            collection.addAll(toReal(path));
+        } else {
+            List<ExampleNode> smoothed = new LinkedList<ExampleNode>();
+    
+            int size = path.size();
+            int[] v1 = vector(path.get(0), path.get(1));
+            smoothed.add(path.get(0));
+            for (int i = 2; i < size; i++) {
+                int[] v2 = vector(path.get(i - 1), path.get(i));
+                if(!compare(v1, v2)) smoothed.add(path.get(i - 1));
+                v1 = v2;
+            }
 
-        // int pSize = path.size();
-        // for (int i = 0; i < pSize; i++) {
-        //     collection.add(path.get(i).getAsArray());
-        // }
-        
-        path.forEach((node) -> {
-            collection.add(new int[]{
-                node.getxPosition() * gridRess,
-                node.getyPosition() * gridRess
-            });
-        });
-        
+            smoothed.add(path.get(size - 1));
+            collection.addAll(toReal(smoothed));
+        }
+
         if(p.attack) collection.add("target");
 
         System.out.println(g.toJson(collection));
     }
 
-    private static List<ExampleNode> toReal(List<ExampleNode> array){
+    private static boolean compare(int[] a, int[] b){
+        return (a[0] == b[0] && a[1] == b[1]);
+    }
+
+    private static int[] vector(ExampleNode a, ExampleNode b){
+        return new int[]{
+            b.getxPosition() - a.getxPosition(),
+            b.getyPosition() - a.getyPosition()
+        };
+    }
+
+    private static Collection toReal(List<ExampleNode> array){
+        Collection oof = new ArrayList<>();
+
         array.forEach((node) -> {
-            node.setCoordinates(
+            oof.add(new int[]{
                 node.getxPosition() * gridRess,
                 node.getyPosition() * gridRess
-            );
+            });
         });
-        return array;
+
+        return oof;
     }
 
     private static Point findPoint(int x, int y){

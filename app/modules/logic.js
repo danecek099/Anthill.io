@@ -364,7 +364,7 @@ class Room {
             case "gameO":
                 const to1 = this.player42.gameOArr.getById(data.id);
                 if(to1 && to1.owner == socket.id){
-                    this.player42.gameOArr.removeByIdS(data.id);
+                    const gO = this.player42.gameOArr.removeByIdS(data.id);
                     this.path.removeObject([to1.propsD]);
                     this.io.in(this.id).emit("destroyed", data);
 

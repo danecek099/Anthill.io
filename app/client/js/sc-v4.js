@@ -2549,7 +2549,8 @@ class TheGame {
             }
             if(reqArr.length != 0){
                 const a = new Calculating(this.shiftedPointerPos());
-                this.gameCont.addChild(a.cont)
+                // this.gameCont.addChild(a.cont);
+                this.uiCont.addChild(a.cont);
                 const reqId = this.emitWatcher.watch("multiMoveRequest", true, () => a.cont.destroy());
                 this.socket.emit("multiMoveRequest", {reqArr, target: this.target, reqId});
             }

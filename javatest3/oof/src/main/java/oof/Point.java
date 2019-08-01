@@ -19,7 +19,11 @@ class Point {
         this.y = j;
     }
 
+    public boolean equals(Point p){
+        return (this.x == p.x && this.y == p.y);
+    }
+
     public String toString(){
-        return x + ", " + y;
+        return String.format("[%d, %d]", x, y);
     }
 }

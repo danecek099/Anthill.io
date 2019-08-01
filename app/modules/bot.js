@@ -371,6 +371,13 @@ class GameO {
             hp: this.hp
         }
     }
+    get propsD() {
+        return {
+            dX: this.dX,
+            dY: this.dY,
+            dS: this.dS
+        }
+    }
     getTarget() {
         return {
             targetType: "gameO",
