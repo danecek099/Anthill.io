@@ -29,7 +29,7 @@ class Ant {
         Object.assign(this, S.ant[type]);
 
         if (Ant.id == undefined) {
-            this.id = Ant.id = 0;
+            this.id = Ant.id = 1;
         } else {
             this.id = ++Ant.id;
         }
@@ -63,7 +63,7 @@ class GameO {
         Object.assign(this, prop);
 
         if (GameO.id == undefined) {
-            this.id = GameO.id = 0;
+            this.id = GameO.id = 1;
         } else {
             this.id = ++GameO.id;
         }

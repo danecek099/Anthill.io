@@ -2,6 +2,7 @@
  * save 28.5.18
  */
 
+const {chunksToLinesAsync} = require('@rauschma/stringio');
 const Settings = require('./public/gameMainProperties').Settings;
 const S = new Settings();
 
@@ -347,8 +348,8 @@ class GameO {
             y: Math.round(this.y),
             r: this.radius,
             o: this.owner,
-            dmg: this.dmgVal, // tady by taky měl být radius...
-            heal: this.healRad
+            dmg: this.dmgVal != undefined,
+            heal: this.healVal != undefined
         }
     }
     get props(){
@@ -469,32 +470,30 @@ class Bot {
         this.antArr = [];
         this.gameOArr = [];
 
-        this.worker = require('child_process').fork('modules/public/worker.js');
-        this.worker.on("message", this.afterCollide.bind(this));
-        this.worker.send({
-            gameW: S.gameW,
-            attackRadius: S.attackRadius,
-            gameORadius: S.gameORadius
+        // this.worker = require('child_process').fork('modules/public/worker.js');
+        this.worker = require('child_process').spawn(
+            'java', ['-jar', 'javatest/uwu.jar', ''], {
+                stdio: ["pipe", "pipe", "pipe"]
+            }
+        );
+        // this.worker.on("message", this.afterCollide.bind(this));
+        this.read(this.worker.stdout);
+        this.worker.on("close", () => console.log("collider " + id + " closed"));
+        this.worker.stderr.on('data', (d) => {
+            console.log("coll err:", d.toString());
         });
-        this.worker.on("close", () => console.log("w" + id + " closed"))
 
-        // let upCount = 0;
-        this.loop = setInterval(() => { // gameloop
+        this.loop = setInterval(() => {
             this.update();
-            // upCount++;
         }, S.fpsToMs);
-
-        // setInterval(() => {
-            
-        //     const diff = 12 - upCount;
-
-        //     for(let i = 0; i < diff; i++){
-        //         // this.update();
-        //     }
-
-        //     upCount = 0;
         // }, 1000);
-
+    }
+    async read(readable) {
+        for await (const line of chunksToLinesAsync(readable)) {
+            const data = JSON.parse(line);
+            // console.log('LINE:', data);
+            this.afterCollide(data);
+        }
     }
     update() {
         this.workerCollide();
@@ -502,35 +501,31 @@ class Bot {
     }
     workerCollide() {
         const antProps = this.antArr.propsColl();
-        const antPropsString = JSON.stringify(antProps);
-
         const gameOProps = this.gameOArr.propsColl();
-        const gameOPropsString = JSON.stringify(gameOProps);
         
-        this.worker.send({
-            antArr: antPropsString,
-            gameOs: gameOPropsString
-        });
-    }
-    afterCollide(message) {
-        const antO = JSON.parse(message.antO);
-        const gameOColl = JSON.parse(message.gameO);
+        // console.log(antProps);
 
-        // this.gameOArr.forEach(gameO => {
+        this.worker.stdin.write(JSON.stringify({
+            antO: antProps,
+            gameO: gameOProps
+        }) + "\n");
+    }
+    afterCollide(mess) {
+        
         for(const gameO of this.gameOArr){
-            if(gameOColl[gameO.id]){
+            if(mess.gameO[gameO.id]){
 
                 // attack
-                if(gameOColl[gameO.id].at != undefined){
+                if(mess.gameO[gameO.id].at != 0){
                     // console.log("at");
 
-                    const ant = this.antArr.getById(gameOColl[gameO.id].at);
+                    const ant = this.antArr.getById(mess.gameO[gameO.id].at);
                     gameO.attack(ant);
                 }
                 
                 // heal
-                if(gameOColl[gameO.id].he != undefined){
-                    for(const antId of gameOColl[gameO.id].he){
+                if(mess.gameO[gameO.id].he.length != 0){
+                    for(const antId of mess.gameO[gameO.id].he){
                         const ant = this.antArr.getById(antId);
                         if(ant)
                             ant.heal(gameO.healVal);
@@ -539,37 +534,37 @@ class Bot {
             }
         }
 
-        // this.antArr.forEach(ant => {
         for(const ant of this.antArr){
-            if (antO[ant.id]) { // jestli existuje v aktuálním setu (nový, mrtvý)
+            if (mess.antO[ant.id]) { // jestli existuje v aktuálním setu (nový, mrtvý)
 
-                ant.props = antO[ant.id]; // pozice po kolizi
+                ant.props = mess.antO[ant.id]; // pozice po kolizi
 
                 // do něčeho mrdnul
-                if (antO[ant.id].hit !== undefined) {
+                if (mess.antO[ant.id].hit.length != 0) {
 
-                    // antO[ant.id].hit.forEach(hit => {
-                    for(const hit of antO[ant.id].hit){
+                    for(const hit of mess.antO[ant.id].hit){
                         let to; // to, do čeho mrdnul
-                        if (hit[0] == "a") to = this.antArr.getById(hit[1]);
-                        else to = this.gameOArr.getById(hit[1]);
+                        // if (hit[0] == "a") to = this.antArr.getById(hit[1]);
+                        if (hit.t == "a") to = this.antArr.getById(hit.id);
+                        // else to = this.gameOArr.getById(hit[1]);
+                        else to = this.gameOArr.getById(hit.id);
+
                         const a = ant.doDmg(to);
 
-                        // kontrola statů
                         this.resolveDmg(a, ant.owner);
                     }
                 }
 
                 // autoAttack
-                if(antO[ant.id].at !== undefined && !antO[ant.id].autoAttackPos){
-                    const target = this.antArr.getById(antO[ant.id].at);
+                if(mess.antO[ant.id].at != 0 && !ant.autoAttackPos){
+                    console.log(ant.id, mess.antO[ant.id].at);
+
+                    const target = this.antArr.getById(mess.antO[ant.id].at);
                     if(target && !target.modoring && !ant.modoring && !ant.goingToAttack && ant.onTarget){
 
                         ant.goingToAttack = true;
 
                         this.autoMoveRequest({
-                            // antId: ant.id,
-                            // target: target.getTarget(),
                             ant: ant,
                             target: target,
                             autoAttack: true

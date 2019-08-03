@@ -11,24 +11,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
-/*
-    Collection collection = new ArrayList();
-    collection.add(g.fromJson(array.get(1), int.class));
-    System.out.println(g.toJson(collection));
-*/
+import java.util.Map;
 
 public final class App {
 
-    static int gameW = 10000;
-    static int gridRess = 20;
-    static int gameBorder = 100;
+    static int gameHalf = 10000 / 2;
+    static int attackRadius = 150;
+    static int gameORadius = 180;
+    static int gameOHealRadius = 150;
 
-    static Map<ExampleNode> myMap;
-    static int sizeD;
     static Gson g;
-    static int resGcW;
-    static int resGcA;
+    static CollMess mess;
 
     public static void main(String[] args) {
         g = new Gson();
@@ -37,236 +30,8 @@ public final class App {
         readUntilYouDieFaggot();
     }
 
-    private static void removeObjects(JsonArray array){
-        int size = array.size();
-
-        for (int i = 1; i < size; i++) {
-            GameO gO = g.fromJson(array.get(i), GameO.class);
-
-            for (int j = 0; j <= gO.dS; j++) {
-                for (int k = 0; k <= gO.dS; k++) {
-                    myMap.setWalkable(gO.dX + j, gO.dY + k, true);
-                }
-            }
-        }
-    }
-
-    private static void addObjects(JsonArray array){
-        int size = array.size();
-
-        for (int i = 1; i < size; i++) {
-            GameO gO = g.fromJson(array.get(i), GameO.class);
-
-            for (int j = 0; j <= gO.dS; j++) {
-                for (int k = 0; k <= gO.dS; k++) {
-                    myMap.setWalkable(gO.dX + j, gO.dY + k, false);
-                }
-            }
-        }
-    }
-
-    interface End {
-        void end(String param);
-    }
-
-    private static void findPath(JsonArray array){
-        Collection collection = new ArrayList();
-        collection.add(g.fromJson(array.get(1), int.class));
-        PathPoints p = g.fromJson(array.get(2), PathPoints.class);
-
-        End e = (param) -> {
-            collection.add(false);
-            collection.add(param);
-            System.out.println(g.toJson(collection));
-        };
-
-        Point start = new Point(
-            p.x1 / gridRess,
-            p.y1 / gridRess
-        );
-        Point end = new Point(
-            p.x2 / gridRess,
-            p.y2 / gridRess
-        );
-
-        // collider s hranou plochy
-        if(end.x > resGcW || end.y > resGcW || end.x < resGcA || end.y < resGcA) {
-            e.end("collider");
-            return;
-        }
-
-        // start point check
-        if(!myMap.isWalkableAt(start.x, start.y)){
-            Point res = findPoint(start.x, start.y);
-            if(res != null) {
-                start.set(res);
-            } else {
-                e.end("start point");
-            }
-        }
-
-        //end point check
-        if(!myMap.isWalkableAt(end.x, end.y)){
-            if(p.s == 0){ // neplatnej BOD blízko/kolem gameO
-                Point res = findPoint(end.x, end.y);
-                if(res != null) {
-                    end.set(res);
-                } else {
-                    e.end("end point");
-                }
-            } else { // nejbližší bod ke gameO
-                double min = Double.MAX_VALUE;
-                Point point = null;
-
-                int half = Math.round(p.s / 2);
-                int mod = p.s % 2 == 0 ? 0 : -1;
-
-                for(int i = end.x - half + mod; i <= end.x + half + 1; i++){
-                    for(int j = end.y - half + mod; j <= end.y + half + 1; j++){
-                        if(myMap.isWalkableAt(i, j)){
-                            int vx = Math.abs(i - start.x),
-                                vy = Math.abs(j - start.y);
-                            double magnitude = Math.sqrt(vx * vx + vy * vy);
-
-                            if(magnitude < min){
-                                min = magnitude;
-                                point = new Point(i, j);
-                            }
-                        }
-                    }
-                }
-
-                if(point != null){
-                    end.set(point);
-                } else {
-                    e.end("end point 2");
-                    return;
-                }
-            }
-        }
-
-        if(start.equals(end)){
-            e.end("start == end");
-            return;
-        }
-        
-        List<ExampleNode> path = myMap.findPath(start.x, start.y, end.x, end.y);
-        if(path.size() == 0) {
-            e.end("no path");
-            return;
-        } else if(path.size() < 3) {
-            collection.addAll(toReal(path));
-        } else {
-            List<ExampleNode> smoothed = new LinkedList<ExampleNode>();
-    
-            int size = path.size();
-            int[] v1 = vector(path.get(0), path.get(1));
-            smoothed.add(path.get(0));
-            for (int i = 2; i < size; i++) {
-                int[] v2 = vector(path.get(i - 1), path.get(i));
-                if(!compare(v1, v2)) smoothed.add(path.get(i - 1));
-                v1 = v2;
-            }
-
-            smoothed.add(path.get(size - 1));
-            collection.addAll(toReal(smoothed));
-        }
-
-        if(p.attack) collection.add("target");
-
-        System.out.println(g.toJson(collection));
-    }
-
-    private static boolean compare(int[] a, int[] b){
-        return (a[0] == b[0] && a[1] == b[1]);
-    }
-
-    private static int[] vector(ExampleNode a, ExampleNode b){
-        return new int[]{
-            b.getxPosition() - a.getxPosition(),
-            b.getyPosition() - a.getyPosition()
-        };
-    }
-
-    private static Collection toReal(List<ExampleNode> array){
-        Collection uwu = new ArrayList<>();
-
-        array.forEach((node) -> {
-            uwu.add(new int[]{
-                node.getxPosition() * gridRess,
-                node.getyPosition() * gridRess
-            });
-        });
-
-        return uwu;
-    }
-
-    private static Point findPoint(int x, int y){
-        int s = 0;
-
-        while(s < 5){ // max dS 5 asi...
-            s++;                   // round() + 1 -> 23.02, v3.2
-            for(int i = x - Math.round(s / 2) + 1; i < x + s - 1; i++){
-                for(int j = y - Math.round(s / 2) + 1; j < y + s - 1; j++){
-                    if(myMap.isWalkableAt(i, j)) return new Point(i, j);
-                }
-            }
-        }
-
-        return null;
-    }
-
-    private static void findPointEx(JsonArray array){
-        Collection collection = new ArrayList();
-        collection.add(g.fromJson(array.get(1), int.class));
-        Point in = g.fromJson(array.get(2), Point.class);
-
-        in.x = Math.round(in.x / gridRess);
-        in.y = Math.round(in.y / gridRess);
-        Point res = findPoint(in.x, in.y);
-        res.set(
-            res.x * gridRess,
-            res.y * gridRess
-        );
-        
-        collection.add(res);
-        System.out.println(g.toJson(collection));
-    }
-
-    private static Point randPos(int dS){
-        int dX = (int) (Math.random() * (resGcW - 2 * dS - 1)) + resGcA;
-        int dY = (int) (Math.random() * (resGcW - 2 * dS - 1)) + resGcA;
-
-        for(int x = dX; x < dX + dS; x++){
-            for(int y = dY; y < dY + dS; y++){
-                
-                if(!myMap.isWalkableAt(x, y)) return null;
-            }
-        }
-
-        return new Point(dX, dY);
-    }
-
-    private static void findFreePos(JsonArray array){
-        Collection collection = new ArrayList();
-        collection.add(g.fromJson(array.get(1), int.class));
-        int dS = g.fromJson(array.get(2), JustDs.class).dS;
-        Point res = null;
-
-        while(res == null){
-            Point ret = randPos(dS);
-            if(ret != null) res = ret;
-        }
-
-        collection.add(res);
-        System.out.println(g.toJson(collection));
-    }
-
     private static void startThatShit(){
-        sizeD = gameW / gridRess;
-        resGcA = gameBorder / gridRess;
-        resGcW = (gameW - gameBorder) / gridRess;
-        myMap = new Map<ExampleNode>(sizeD, sizeD);
+        
     }
 
     private static void readUntilYouDieFaggot(){
@@ -275,35 +40,216 @@ public final class App {
         while(true){
             try {
                 String json = buff.readLine();
-                JsonParser parser = new JsonParser();
-                JsonArray array = parser.parse(json).getAsJsonArray();
+                mess = g.fromJson(json, CollMess.class);
+                collide();
 
-                String command = g.fromJson(array.get(0), String.class);
-
-                switch(command){
-                    case "addObject":
-                        addObjects(array);
-                    break;
-                    case "removeObject":
-                        removeObjects(array);
-                    break;
-                    case "findPath":
-                        findPath(array);
-                    break;
-                    case "findPointEx":
-                        findPointEx(array);
-                    break;
-                    case "findFreePos":
-                        findFreePos(array);
-                    break;
-
-                    default:
-                        System.out.print("uwu");
-                    break;
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static class Test {
+        public Map<String, Oof> m;
+    
+        public String toString(){
+            String oof = "";
+
+            for(Map.Entry<String, Oof> item : m.entrySet()){
+                oof += String.format("[%s, %s]", item.getKey(), item.getValue().oof);
+            }
+
+            return oof;
+        }
+
+        class Oof {
+            public String oof;
+        }
+    }
+
+    private static void collide(){
+        List<Integer> sect1 = new ArrayList<>();
+        List<Integer> sect2 = new ArrayList<>();
+        List<Integer> sect3 = new ArrayList<>();
+        List<Integer> sect4 = new ArrayList<>();
+        List<Integer> sect11 = new ArrayList<>();
+        List<Integer> sect22 = new ArrayList<>();
+        List<Integer> sect33 = new ArrayList<>();
+        List<Integer> sect44 = new ArrayList<>();
+
+        // int size = mess.antO.size();
+        // for(int i = 0; i < size; i++){
+        for(Map.Entry<Integer, AntO> a : mess.antO.entrySet()){
+            // AntO ant = mess.antO.get(i);
+            AntO antO = a.getValue();
+            int i = a.getKey();
+
+            int x = antO.x + antO.r,
+                y = antO.y + antO.r;
+
+            if (x < gameHalf) {
+                if (y < gameHalf) sect1.add(i);
+                else sect3.add(i);
+            } else {
+                if (y < gameHalf) sect2.add(i);
+                else sect4.add(i);
+            }
+        }
+
+        // size = mess.gameO.size();
+        // for (int i = 0; i < size; i++) {
+        for(Map.Entry<Integer, GameO> g : mess.gameO.entrySet()){
+            // GameO g = mess.gameO.get(i);
+            GameO gO = g.getValue();
+            int i = g.getKey();
+
+            int x = gO.x,
+                y = gO.y,
+                r = gO.r * 2;
+
+            if (x <= gameHalf && y <= gameHalf) { // 1
+                sect11.add(i);
+            }
+            if ((x > gameHalf || x + r > gameHalf) && y <= gameHalf) { // 2
+                sect22.add(i);
+            }
+            if (x <= gameHalf && (y > gameHalf || y + r > gameHalf)) { // 3
+                sect33.add(i);
+            }
+            if ((x > gameHalf || x + r > gameHalf) && (y > gameHalf || y + r > gameHalf)) { // 4
+                sect44.add(i);
+            }
+        }
+
+        collF(sect1, sect11);
+        collF(sect2, sect22);
+        collF(sect3, sect33);
+        collF(sect4, sect44);
+
+        System.out.println(g.toJson(mess));
+    }
+
+    private static void collF(List<Integer> ar, List<Integer> gr) { // ant id, gameO id
+        int s = ar.size();
+        for (int i = 0; i < s; i++) {
+            for (int j = i + 1; j < s; j++) {
+                movingCircleCollision(ar.get(i), ar.get(j));
+            }
+            
+            int s1 = gr.size();
+            for (int k = 0; k < s1; k++) {
+                circleCollision(ar.get(i), gr.get(k));
+            }
+        }
+    }
+
+    private static void movingCircleCollision(int a1, int a2) { // ant id, ant id
+        int combinedRadii, xSide, ySide;
+        double overlap;
+        V s = new V();
+        AntO c1 = mess.antO.get(a1);
+        AntO c2 = mess.antO.get(a2);
+
+        s.vx = (c2.x + c2.r) - (c1.x + c1.r);
+        s.vy = (c2.y + c2.r) - (c1.y + c1.r);
+
+        s.magnitude = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+
+        if(s.magnitude < attackRadius && !c2.o.equals(c1.o)){
+            c1.at = c2.id;
+            c2.at = c1.id;
+        }
+
+        combinedRadii = c1.r + c2.r;
+
+        if (s.magnitude < combinedRadii) {
+
+            overlap = combinedRadii - s.magnitude;
+
+            overlap += 1;
+
+            s.dx = s.vx / s.magnitude;
+            s.dy = s.vy / s.magnitude;
+
+            s.vxHalf = Math.abs(s.dx * overlap / 2);
+            s.vyHalf = Math.abs(s.dy * overlap / 2);
+
+            xSide = (c1.x > c2.x) ? 1 : -1;
+            ySide = (c1.y > c2.y) ? 1 : -1;
+
+            c1.x = (int) (c1.x + (s.vxHalf * xSide));
+            c1.y = (int) (c1.y + (s.vyHalf * ySide));
+            c2.x = (int) (c2.x + (s.vxHalf * -xSide));
+            c2.y = (int) (c2.y + (s.vyHalf * -ySide));
+
+            c1.xx += s.vxHalf * xSide;
+            c1.yy += s.vyHalf * ySide;
+            c2.xx += s.vxHalf * -xSide;
+            c2.yy += s.vyHalf * -ySide;
+
+            c1.hit.add(new Hit("a", c2.id));
+            c2.hit.add(new Hit("a", c1.id));
+        }
+
+        // setnu to zpět protože java
+        mess.antO.put(a1, c1);
+        mess.antO.put(a2, c2);
+    }
+
+    private static void circleCollision(int a, int g) { // ant, gameO
+        int combinedRadii;
+        double overlap;
+        V s = new V();
+        AntO c1 = mess.antO.get(a);
+        GameO c2 = mess.gameO.get(g);
+
+        s.vx = (c2.x + c2.r) - (c1.x + c1.r);
+        s.vy = (c2.y + c2.r) - (c1.y + c1.r);
+
+        s.magnitude = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+        
+        // attackuje jenom cizí
+        if(c2.dmg && s.magnitude < gameORadius && !c1.o.equals(c2.o)){
+            c2.at = c1.id; // attack nastavuju jenom gameO
+        }
+
+        // healuje jenom svoje
+        if(c2.heal && s.magnitude < gameOHealRadius && c1.o.equals(c2.o)){
+            c2.he.add(c1.id); // heal nastavuju jenom gameO
+        }
+
+        combinedRadii = c1.r + c2.r;
+
+        if (s.magnitude < combinedRadii) {
+
+            overlap = combinedRadii - s.magnitude;
+
+            overlap += 0.3;
+
+            s.dx = s.vx / s.magnitude;
+            s.dy = s.vy / s.magnitude;
+
+            c1.x -= overlap * s.dx;
+            c1.y -= overlap * s.dy;
+
+            c1.xx -= overlap * s.dx;
+            c1.yy -= overlap * s.dy;
+
+            c1.hit.add(new Hit("g", c2.id));
+        }
+
+        // setnu to zpět protože java
+        mess.antO.put(a, c1);
+        mess.gameO.put(g, c2);
+    }
+
+    private static class V {
+        public int vx;
+        public int vy;
+        public double vxHalf;
+        public double vyHalf;
+        public double dx;
+        public double dy;
+        public double magnitude;
     }
 }

@@ -10,4 +10,7 @@
 -* když je první cesta do mainGo tak to crashne
     -  start a end se rovnal
 
--> při změně roomky se neresetne Calculating sign
+-* při změně roomky se neresetne Calculating sign
+    - prckat
+
+-* collider hotov

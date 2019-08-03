@@ -130,7 +130,8 @@ class Settings{
         this.fps = 12; // 12
         this.attackRadius = 150;
         this.attackMax = 400;
-        this.gameORadius = 180; // 150
+        this.gameORadius = 180; // attack, 150
+        this.gameOHealRadius = 150; // heal, 150
         this.antTimeout = 500;
         this.gameOGapPx = -8; // -8
         this.gameOAttackDelay = 300;
@@ -204,7 +205,7 @@ class Settings{
             // zeď
             8: {dS: 2, defHp: 200, armor: 3, color: this.COLOR_ASPHALT, icon: "ic6", shape: 3, spawnDelay: 3, cost: {item0: 70, item1: 50, gold: 70}, lvl: 1},
             // heal
-            9: {dS: 2, defHp: 100, armor: 3, color: this.COLOR_GREEN, icon: "ic16", shape: 3, spawnDelay: 10, cost: {item0: 400, item1: 100, gold: 400}, lvl: 1, healVal: 1, healRad: 150},
+            9: {dS: 2, defHp: 100, armor: 3, color: this.COLOR_GREEN, icon: "ic16", shape: 3, spawnDelay: 10, cost: {item0: 400, item1: 100, gold: 400}, lvl: 1, healVal: 1},
         }
 
         /**
@@ -501,6 +502,18 @@ Object.defineProperty(Array.prototype, 'propsColl', {
         this.forEach(b => {
             if(b.doCollide)
                 a[b.id] = b.collProps
+        });
+        return a;
+    }
+});
+
+Object.defineProperty(Array.prototype, 'propsCollJava', {
+    enumerable: false,
+    value: function () {
+        const a = [];
+        this.forEach(b => {
+            if(b.doCollide)
+                a.push(b.collProps);
         });
         return a;
     }
