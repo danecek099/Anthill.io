@@ -21,7 +21,7 @@ class Path {
     async read(readable) {
         for await (const line of chunksToLinesAsync(readable)) {
             const data = JSON.parse(line);
-            // console.log('LINE:', data);
+            console.log('LINE:', data);
             this.processReturn(data);
         }
     }
@@ -46,7 +46,7 @@ class Path {
      * return undefined
      */
     addObject(gameObjects){
-        // console.log(JSON.stringify(["addObject", ...gameObjects]));
+        console.log(JSON.stringify(["addObject", ...gameObjects]));
         this.process.stdin.write(JSON.stringify(["addObject", ...gameObjects]) + "\n");
     }
 
@@ -60,14 +60,14 @@ class Path {
                 jo(retVal);
             });
             
-            // console.log(JSON.stringify(["findPath", reqId, {
-            //     x1: start.x,
-            //     y1: start.y,
-            //     x2: end.x,
-            //     y2: end.y,
-            //     s: end.s,
-            //     attack: end.atack
-            // }]));
+            console.log(JSON.stringify(["findPath", reqId, {
+                x1: start.x,
+                y1: start.y,
+                x2: end.x,
+                y2: end.y,
+                s: end.s,
+                attack: end.atack
+            }]));
             this.process.stdin.write(JSON.stringify(["findPath", reqId, {
                 x1: start.x,
                 y1: start.y,

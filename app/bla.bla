@@ -2,10 +2,11 @@
     - asi si to napíšu sám, nakonec to není tak těžký
     - eazy
 
--*? gameO jsou zas nějak posunutý směrem dolu
+-> gameO jsou zas nějak posunutý směrem dolu
     - noo a teď mi nejde zaměrit gO s lichým dS
     - špatně si vybíraj nejbližší bod u gO
-    - noo jakože prcat celkem
+    - noo jakože prckat celkem
+    - noo jakože nedá se najít cesta ke gO i když tam jakože je
 
 -* když je první cesta do mainGo tak to crashne
     -  start a end se rovnal
@@ -14,3 +15,5 @@
     - prckat
 
 -* collider hotov
+
+- lze postavit gO mimo hraní plochu -> crash

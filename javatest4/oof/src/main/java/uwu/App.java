@@ -1,15 +1,11 @@
 package uwu;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,24 +45,6 @@ public final class App {
         }
     }
 
-    private static class Test {
-        public Map<String, Oof> m;
-    
-        public String toString(){
-            String oof = "";
-
-            for(Map.Entry<String, Oof> item : m.entrySet()){
-                oof += String.format("[%s, %s]", item.getKey(), item.getValue().oof);
-            }
-
-            return oof;
-        }
-
-        class Oof {
-            public String oof;
-        }
-    }
-
     private static void collide(){
         List<Integer> sect1 = new ArrayList<>();
         List<Integer> sect2 = new ArrayList<>();
@@ -77,10 +55,7 @@ public final class App {
         List<Integer> sect33 = new ArrayList<>();
         List<Integer> sect44 = new ArrayList<>();
 
-        // int size = mess.antO.size();
-        // for(int i = 0; i < size; i++){
         for(Map.Entry<Integer, AntO> a : mess.antO.entrySet()){
-            // AntO ant = mess.antO.get(i);
             AntO antO = a.getValue();
             int i = a.getKey();
 
@@ -96,10 +71,7 @@ public final class App {
             }
         }
 
-        // size = mess.gameO.size();
-        // for (int i = 0; i < size; i++) {
         for(Map.Entry<Integer, GameO> g : mess.gameO.entrySet()){
-            // GameO g = mess.gameO.get(i);
             GameO gO = g.getValue();
             int i = g.getKey();
 

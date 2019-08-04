@@ -542,7 +542,7 @@ class Room {
 
         this.player42 = new Bot(this.id);
 
-        Promise.all(promArr).then(() => {            
+        Promise.all(promArr).then(() => {
             this.player42.do("start", {
                 g: gameOArr.propsS()
             });
@@ -591,8 +591,6 @@ class Room {
          * autoAttack - jo, nebo ne z kaeru()
          */
         this.player42.autoMoveRequest = (data) => {
-            // const ant = this.player42.antArr.getById(data.antId);
-
             let coor, target;
             if(!data.autoAttack){
                 // normální getCoor
@@ -603,8 +601,6 @@ class Room {
                 coor = this.getCoor(data.target, data.ant, true);
                 target = data.target.getTarget();
             }
-
-            // console.log(data.ant.id, data.autoAttack);
 
             this.path.doPath(data.ant.pos, coor).then(path => {
                 if (path) {
@@ -657,11 +653,16 @@ class Room {
                 if ((to.enemyOf(ant) || to.mineable) && ant.attackSet.indexOf(to.type) == -1) {
                     end.atack = true;
                 }
-                end.x = to.centerX;
-                end.y = to.centerY;
-                end.s = to.dS || to.s;
-            } else 
-                return false;
+
+                if(to.dS != undefined){
+                    end.x = to.dX;
+                    end.y = to.dY;
+                    end.s = to.dS;
+                } else {
+                    end.x = to.centerX;
+                    end.y = to.centerY;
+                }
+            } else return false;
         } else { // je to bod
             end.x = target.x;
             end.y = target.y;

@@ -84,10 +84,19 @@ public final class App {
             p.x1 / gridRess,
             p.y1 / gridRess
         );
-        Point end = new Point(
-            p.x2 / gridRess,
-            p.y2 / gridRess
-        );
+
+        Point end;
+        if(p.s != 0) {
+            end = new Point( // gameO
+                p.x2,
+                p.y2
+            );
+        } else {
+            end = new Point( // antO
+                p.x2 / gridRess,
+                p.y2 / gridRess
+            );
+        }
 
         // collider s hranou plochy
         if(end.x > resGcW || end.y > resGcW || end.x < resGcA || end.y < resGcA) {
@@ -118,11 +127,8 @@ public final class App {
                 double min = Double.MAX_VALUE;
                 Point point = null;
 
-                int half = Math.round(p.s / 2);
-                int mod = p.s % 2 == 0 ? 0 : -1;
-
-                for(int i = end.x - half + mod; i <= end.x + half + 1; i++){
-                    for(int j = end.y - half + mod; j <= end.y + half + 1; j++){
+                for(int i = end.x - 1; i <= end.x + p.s + 1; i++){
+                    for(int j = end.y - 1; j <= end.y + p.s + 1; j++){
                         if(myMap.isWalkableAt(i, j)){
                             int vx = Math.abs(i - start.x),
                                 vy = Math.abs(j - start.y);

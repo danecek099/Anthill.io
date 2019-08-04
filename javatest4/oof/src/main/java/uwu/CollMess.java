@@ -5,29 +5,8 @@ import java.util.Map;
 import java.util.ArrayList;
 
 public class CollMess {
-    // public List<GameO> gameO;
-    // public List<AntO> antO;
     public Map<Integer, GameO> gameO;
     public Map<Integer, AntO> antO;
-
-    public String toString(){
-        String oof = "";
-
-        // for (GameO g : gameO) {
-        //     oof += "{g: " + g.id + "}";
-        // }
-        // for (AntO a : antO) {
-        //     for(Hit h : a.hit){
-        //         oof += "{a: " + h.t + ", " + h.id + "}";
-        //     }
-        // }
-
-        // for(Map.Entry<Integer, GameO> gO : gameO.entrySet()){
-
-        // }
-
-        return oof;
-    }
 }
 
 class GameO {

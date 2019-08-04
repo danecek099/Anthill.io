@@ -511,7 +511,7 @@ class Bot {
         }) + "\n");
     }
     afterCollide(mess) {
-        
+
         for(const gameO of this.gameOArr){
             if(mess.gameO[gameO.id]){
 
@@ -557,8 +557,6 @@ class Bot {
 
                 // autoAttack
                 if(mess.antO[ant.id].at != 0 && !ant.autoAttackPos){
-                    console.log(ant.id, mess.antO[ant.id].at);
-
                     const target = this.antArr.getById(mess.antO[ant.id].at);
                     if(target && !target.modoring && !ant.modoring && !ant.goingToAttack && ant.onTarget){
 
