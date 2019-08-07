@@ -228,8 +228,7 @@ class Room {
     requestGameO(data, socket) {
         const playa = this.playaArr.getById(socket.id);
 
-        if(playa && this.takeResources(S.gameO[data.type].cost, playa)){
-
+        if(playa && this.checkGameBorder(data) && this.takeResources(S.gameO[data.type].cost, playa)){
             data.owner = socket.id;
             this.io.in(this.id).emit("pre", {data, owner: socket.id, reqId: data.reqId});
 
@@ -263,7 +262,8 @@ class Room {
 
             playa.buildTimeOuts.push(timeOut);
         } else {
-            // console.error("req gameO: není res nebo playa");
+            socket.emit("pre", {owner: socket.id, reqId: data.reqId, data: false});
+            // console.error("req gameO: playa, gameBorder, res");
         }
     }
     requestAnt(data, socket) {
@@ -460,14 +460,26 @@ class Room {
     }
     test(data, socket) {
         console.log("testRoom", this.id, socket.roomId, socket.id);
-        socket.emit("test", "test socket");
-        this.io.in(this.id).emit("test", "test io");
-        this.io.in(this.id).emit("test", "test sockets.io");
+        this.io.in(this.id).emit("test", "bych");
     }
     showMsg(data, socket){
         this.io.in(this.id).emit("showMsg", data);
     }
     // /event fce
+
+    /**
+     * jestli je uvnitř herního pole
+     */
+    checkGameBorder(data){
+        const dS = S.gameO[data.type].dS;
+
+        if(S.resGcW < data.dX + dS ||
+            S.resGcA > data.dS ||
+            S.resGcW < data.dY + dS ||
+            S.resGcA > data.dY) return false;
+        
+        return true;
+    }
 
     /**
      * return Promise

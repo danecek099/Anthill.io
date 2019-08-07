@@ -1,7 +1,6 @@
 'use strict';
 
 const Set = require("public/gameMainProperties").Settings;
-// const Set = require("/public/gameMainProperties");
 const S = new Set();
 const JSONParser = rrequire("socket.io-json-parser");
 
@@ -10,19 +9,11 @@ class MujTink extends Tink {
         super(p, r);
     }
 
-    // update() {
-    //     // if (!this.mainPointer.dragSelecting) {
-    //     //     super.update();
-    //     // }
-    //     if (this.mainPointer.isDown) this.dragSelectUpdate();
-    // }
-    
     makePointer() {
         this.mainPointer = super.makePointer();
         return this.mainPointer;
     }
 }
-
 class Square {
     constructor(x, y, s, color) {
         this.s = s;
@@ -1225,6 +1216,10 @@ class UIMap extends Panel{
             this.doUpdate = false;
             this.mainPointer.inUse = false;
         });
+        this.box.r.on("mouseupoutside", event => {
+            this.doUpdate = false;
+            this.mainPointer.inUse = false;
+        });
         this.box.r.on("mousemove", event => {
             if(this.doUpdate){
                 this.updatePos(event)
@@ -2155,7 +2150,7 @@ class TheGame {
                         path: "/s1", 
                         transports: ['websocket'],
                         parser: JSONParser
-                    })
+                    });
 
                     const intr = setInterval(() => {
                         clearInterval(intr);
@@ -2167,7 +2162,7 @@ class TheGame {
     
                     this.socket.on("connect", () => {
                         clearInterval(intr);
-                        jo()
+                        jo();
                     });
                 }
 
@@ -2883,16 +2878,18 @@ class TheGame {
         s.on("pre", data => {
             if(data.owner == this.socket.id) this.emitWatcher.done("requestGameO", data.reqId);
 
-            const props = data.data;
-            const x = props.dX * S.gridRess + S.gameOGapPx;
-            const y = props.dY * S.gridRess + S.gameOGapPx;
-            const s = (S.gameO[props.type].dS) * S.gridRess - 2 * S.gameOGapPx;
-
-            const pre = new PreGameO(x, y, s, props.type, props.owner != this.socket.id);
-            pre.r.alpha = .7;
-
-            this.gameOCont.addChild(pre.r);
-            this.preArr.push(pre.ref());
+            if(data.data != false){
+                const props = data.data;
+                const x = props.dX * S.gridRess + S.gameOGapPx;
+                const y = props.dY * S.gridRess + S.gameOGapPx;
+                const s = (S.gameO[props.type].dS) * S.gridRess - 2 * S.gameOGapPx;
+    
+                const pre = new PreGameO(x, y, s, props.type, props.owner != this.socket.id);
+                pre.r.alpha = .7;
+    
+                this.gameOCont.addChild(pre.r);
+                this.preArr.push(pre.ref());
+            }
         });
         s.on("rooms", data => {
             this.roomSelectData.data = data;
@@ -3841,10 +3838,7 @@ class TheGame {
             }
         }
 
-        for(const pre of this.preArr){
-        }
-        
-        this.preArr.forEach((pre, i) => {
+        !hit && this.preArr.forEach((pre, i) => {
             if(pre.r.transform){
                 if (pre.r.x < this.prevShape.r.x + this.prevShape.s &&
                     pre.r.x + pre.s > this.prevShape.r.x &&
@@ -3856,6 +3850,13 @@ class TheGame {
                 this.preArr.splice(i, 1);
             }
         });
+
+        if(!hit && (
+            S.gameW - S.gameBorder < this.prevShape.r.x + this.prevShape.s ||
+            S.gameBorder > this.prevShape.r.x ||
+            S.gameW - S.gameBorder < this.prevShape.r.y + this.prevShape.s ||
+            S.gameBorder> this.prevShape.r.y
+        )) hit = true;
 
         if(this.prevShape.isSpawn){
             const vx = this.prevShape.r.x - this.prevShape.isSpawn.x;

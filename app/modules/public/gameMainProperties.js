@@ -367,12 +367,21 @@ class Settings{
         this.motd = "Check out the Anthill.io Discord channel!";
     }
 
+    /**
+     * gameW / gridRess
+     */
     get resW(){
         return this.gameW / this.gridRess;
     }
+    /**
+     * gameBorder / gridRess
+     */
     get resGcA(){
         return this.gameBorder / this.gridRess;
     }
+    /**
+     * (gameW - gameBorder) / gridRess
+     */
     get resGcW(){
         // return ((this.gameW - this.gameBorder) / this.gridRess) + 1;
         return ((this.gameW - this.gameBorder) / this.gridRess)
