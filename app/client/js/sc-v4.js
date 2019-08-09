@@ -2027,7 +2027,7 @@ class Calculating extends Panel {
 }
 class Leaderboard extends Panel {
     constructor(){
-        super(16, 80, 100, 175);
+        super(16, 80, 130, 175);
         this.box.r.alpha = .8;
 
         this.opts = Object.assign({}, S.opts);
@@ -2047,7 +2047,8 @@ class Leaderboard extends Panel {
     update(data){
         this.tCont.removeChildren();
         for(const i in data){
-            const t = new PIXI.Text(`${parseInt(i) + 1}: ${data[i].name}`, this.opts);
+            const name = data[i].name.length > 11 ? data[i].name.substring(0, 11) + "..." : data[i].name;
+            const t = new PIXI.Text(`${parseInt(i) + 1}: ${name}`, this.opts);
             t.x = 8;
             t.y = 8 + i * 16;
             
@@ -2297,8 +2298,8 @@ class TheGame {
             this.inp.style.display = "none";
             this.inp.blur();
         }
-        this.textBox = document.getElementById("txtR");
-        this.textBox1 = document.getElementById("txtR1");
+        // this.textBox = document.getElementById("txtR");
+        // this.textBox1 = document.getElementById("txtR1");
 
         this.userLang = navigator.language || navigator.userLanguage;
         console.log(this.userLang);
@@ -2414,8 +2415,8 @@ class TheGame {
             this.pointerLock();
         
         this.inp.hide();
-        this.textBox.style.display = "none";
-        this.textBox1.style.display = "none";
+        // this.textBox.style.display = "none";
+        // this.textBox1.style.display = "none";
 
         this.name = this.inp.value;
         // stage pro hru
@@ -2495,8 +2496,8 @@ class TheGame {
         this.roomSelStage.on("click", () => {
             this.inp.blur();
         })
-        this.textBox.style.display = "block";
-        this.textBox1.style.display = "block";
+        // this.textBox.style.display = "block";
+        // this.textBox1.style.display = "block";
 
         if(!re){ // resize
             this.mainStage.removeChildren();

@@ -119,6 +119,7 @@ class Settings{
 
         // gameName
         this.GM = "Anthill.io";
+        this.motd = "Check out the Anthill.io Discord channel!";
         
         this.gameW = 10000;
         this.visibleAreaDef = 700; // neměnit! posere to UI. bylo to 700 kdybys to stejně zkurvil
@@ -364,8 +365,6 @@ class Settings{
             fill: this.FONT_COLOR,
             fontFamily: "\"Lucida Sans Unicode\", \"Lucida Grande\", sans-serif"
         }
-
-        this.motd = "Check out the Anthill.io Discord channel!";
     }
 
     /**
