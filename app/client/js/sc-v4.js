@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 const Set = require("public/gameMainProperties").Settings;
 const S = new Set();
