@@ -135,7 +135,8 @@ class Settings{
         this.antTimeout = 500;
         this.gameOGapPx = -8; // -8
         this.gameOAttackDelay = 300;
-        this.roomRestartTreshold = 1;
+        this.roomRestartTreshold = 6;
+        this.roomRestartTimeout = 180; // s
         this.healDelay = 1000;
         this.responseDelay = 1800; // ms
         this.spawnDistance = 250;

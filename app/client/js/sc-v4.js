@@ -4119,6 +4119,7 @@ class TheGame {
             aiptag.cmd.display.push(function() {
                 aipDisplayTag.display('oof100-eu_300x250');
             });
+
             aiptag.cmd.display.push(function() {
                 aipDisplayTag.display('oof100-eu_728x90');
             });

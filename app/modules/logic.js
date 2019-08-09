@@ -724,7 +724,7 @@ class Room {
         }
     }
     restartCounter(){
-        this.showMsg("Room will restart in 2min");
+        this.showMsg(`Room will restart in ${S.roomRestartTimeout / 60} min`);
 
         setTimeout(() => {
             console.log(new Date().toLocaleString(), "Room", this.id, "restarted");
@@ -738,7 +738,7 @@ class Room {
 
             clearInterval(this.upIntr);
             this.suicide(this.id);
-        }, 20000);
+        }, S.roomRestartTimeout * 1000);
     }
 }
 

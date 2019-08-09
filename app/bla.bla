@@ -20,8 +20,9 @@
 -* lze postavit gO mimo hraní plochu -> crash
 
 -* ta zasraná mapa
+-* výrazně zkrátit živostnost jedný roomky, třeba 3 minuty po vytěžení 4 golden gO
 
+-> leaderboard
 - klik na reklamu nějak zastaví hru
-- leaderboard
-- výrazně zkrátit živostnost jedný roomky, třeba 3 minuty po vytěžení 4 golden gO
 - jakože ne že by se uplně uvolňovala paměť noo...
+    - a jako jak to mam asi debugnout?
