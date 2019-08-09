@@ -2481,8 +2481,8 @@ class TheGame {
             this.socket.emit("ready");
 
             // this.adToggle(true);
-            document.getElementById("anthill-io-eu_728x90").style.display = "block";
-            document.getElementById("anthill-io-eu_300x250").style.display = "block";
+            document.getElementById("oof100-eu_728x90").style.display = "block";
+            document.getElementById("oof100-eu_300x250").style.display = "block";
 
             // console.log(window);
             // console.log(document);
@@ -2493,7 +2493,7 @@ class TheGame {
             if(document.location.ancestorOrigins && document.location.ancestorOrigins.length != 0){
                 if(document.location.ancestorOrigins[0].includes("titotu") || document.location.ancestorOrigins[0].includes("iogames")){
                     this.mainPointer.press = () => {
-                        const w = window.open("https://anthill-io.eu", "_blank");
+                        const w = window.open("https://oof100.eu", "_blank");
 
                         if(w){
                             this.runtimeToggle();
@@ -2505,7 +2505,7 @@ class TheGame {
             }
             if(document.referrer.includes("iogames")){
                 this.mainPointer.press = () => {
-                    const w = window.open("https://anthill-io.eu", "_blank");
+                    const w = window.open("https://oof100.eu", "_blank");
 
                     if(w){
                         this.runtimeToggle();
@@ -4112,19 +4112,19 @@ class TheGame {
         console.log("ad", show);
 
         if(show){
-            document.getElementById("anthill-io-eu_728x90").style.display = "block";
-            document.getElementById("anthill-io-eu_300x250").style.display = "block";
+            document.getElementById("oof100-eu_728x90").style.display = "block";
+            document.getElementById("oof100-eu_300x250").style.display = "block";
 
             //re
             aiptag.cmd.display.push(function() {
-                aipDisplayTag.display('anthill-io-eu_300x250');
+                aipDisplayTag.display('oof100-eu_300x250');
             });
             aiptag.cmd.display.push(function() {
-                aipDisplayTag.display('anthill-io-eu_728x90');
+                aipDisplayTag.display('oof100-eu_728x90');
             });
         } else {
-            document.getElementById("anthill-io-eu_728x90").style.display = "none";
-            document.getElementById("anthill-io-eu_300x250").style.display = "none";
+            document.getElementById("oof100-eu_728x90").style.display = "none";
+            document.getElementById("oof100-eu_300x250").style.display = "none";
         }
     }
     playAd(){
