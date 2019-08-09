@@ -165,30 +165,30 @@ class Worker {
     }
 }
 
-try {
-    self.onmessage = function (e) { // client
-        if (self.worker === undefined) {
-            self.worker = new Worker(e.data.gameW, e.data.attackRadius, e.data.gameORadius);
-        } else {
-            const [antO, gameO] = worker.collide(JSON.parse(e.data.antArr), JSON.parse(e.data.gameOArr));
-            postMessage({
-                antO: JSON.stringify(antO),
-                gameO: JSON.stringify(gameO)
-            });
-        }
+self.onmessage = function (e) { // client
+    if (self.worker === undefined) {
+        self.worker = new Worker(e.data.gameW, e.data.attackRadius, e.data.gameORadius);
+    } else {
+        const [antO, gameO] = worker.collide(JSON.parse(e.data.antArr), JSON.parse(e.data.gameOArr));
+        postMessage({
+            antO: JSON.stringify(antO),
+            gameO: JSON.stringify(gameO)
+        });
     }
-} catch (error) {
-    process.on("message", (e) => { // server
-        if (this.worker === undefined) {
-            // console.log(e.gameW, e.attackRadius);
-            this.worker = new Worker(e.gameW, e.attackRadius, e.gameORadius);
-        } else {
-            const [antO, gameO] = this.worker.collide(JSON.parse(e.antArr), JSON.parse(e.gameOs));
-            process.send({
-                msg: "collide",
-                antO: JSON.stringify(antO),
-                gameO: JSON.stringify(gameO)
-            });
-        }
-    })
 }
+// try {
+// } catch (error) {
+//     process.on("message", (e) => { // server
+//         if (this.worker === undefined) {
+//             // console.log(e.gameW, e.attackRadius);
+//             this.worker = new Worker(e.gameW, e.attackRadius, e.gameORadius);
+//         } else {
+//             const [antO, gameO] = this.worker.collide(JSON.parse(e.antArr), JSON.parse(e.gameOs));
+//             process.send({
+//                 msg: "collide",
+//                 antO: JSON.stringify(antO),
+//                 gameO: JSON.stringify(gameO)
+//             });
+//         }
+//     })
+// }

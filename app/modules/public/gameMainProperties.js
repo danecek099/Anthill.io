@@ -105,7 +105,7 @@ class Settings{
         this.TXT_GAMEOPREV_1 = "More kinds of units";
         this.TXT_GAMEOPREV_2 = "Adds more unit space\rMax 6";
         this.TXT_GAMEOPREV_3 = "Upgrades properties of your units";
-        this.TXT_GAMEOPREV_6 = "Defense tower\rMax 8";
+        this.TXT_GAMEOPREV_6 = "Defense tower\rMax 3";
         this.TXT_GAMEOPREV_8 = "Just a wall";
         this.TXT_GAMEOPREV_9 = "Heals units in a radius from the building";
         this.TXT_ATTACK_THIS = "Attack with all units";
@@ -135,7 +135,7 @@ class Settings{
         this.antTimeout = 500;
         this.gameOGapPx = -8; // -8
         this.gameOAttackDelay = 300;
-        this.roomRestartTreshold = 6;
+        this.roomRestartTreshold = 5;
         this.roomRestartTimeout = 180; // s
         this.healDelay = 1000;
         this.responseDelay = 1800; // ms
@@ -147,7 +147,7 @@ class Settings{
             maxFarm: 6,
             curFarm: 0,
 
-            maxTower: 2,
+            maxTower: 3,
             curTower: 0
         }
         this.stats = {

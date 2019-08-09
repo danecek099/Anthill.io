@@ -629,7 +629,7 @@ class GameO {
         }
     }
 }
-class Panel{
+class Panel {
     /**
      * @param {*} x Pozice
      * @param {*} y Pozice
@@ -659,7 +659,7 @@ class Panel{
         this.cont.addChild(this.box.r);
     }
 }
-class UIInfo extends Panel{
+class UIInfo extends Panel {
     /**
      * statArr: [pozice, text1, source, key]
      *  / [pozice, text1, text2]
@@ -820,7 +820,7 @@ class UIInfo extends Panel{
         }
     }
 }
-class UIContr extends Panel{
+class UIContr extends Panel {
     constructor(w, h, pointer, fcArr) {
         const a = 370;
         const b = fcArr.length < 7 ? 76 : 136;
@@ -888,7 +888,7 @@ class UIContr extends Panel{
         return b
     }
 }
-class UIContrHint extends Panel{
+class UIContrHint extends Panel {
     /**
      * Sám odečítá svojí výšku, použij souřadnice parent boxu
      */
@@ -927,7 +927,7 @@ class UIContrHint extends Panel{
         }, 800);
     }
 }
-class UIContrHintAdvanced extends Panel{
+class UIContrHintAdvanced extends Panel {
     /**
      * Sám odečítá svojí výšku, použij souřadnice parent boxu
      */
@@ -1081,7 +1081,7 @@ class FadingBullshit extends BaseCircle1 {
 
     }
 }
-class UIStats{
+class UIStats {
     constructor(statArr) {
         this.cont = new PIXI.Container();
         this.cont.x = 16;
@@ -1175,7 +1175,7 @@ class UIStats{
             }
     }
 }
-class UIMap extends Panel{
+class UIMap extends Panel {
     constructor(width, height, gameCont, scaleRatio, mainPointer) {
         const a = 100;
         const b = 100;
@@ -1326,7 +1326,7 @@ class DmgNumber {
         }
     }
 }
-class PreGameO{
+class PreGameO {
     constructor(x, y, s, type, enemy){
         const color = enemy ? S.REE1 : S.GREE1;
         Object.assign(this, ShapeArr[S.gameO[type].shape](x, y, s, color, S.gameO[type].icon));
@@ -1354,7 +1354,7 @@ class PreGameO{
         }
     }
 }
-class Projectile{
+class Projectile {
     constructor(owner, start, target, dmg){
         // const sq = new Square(start.x - 5, start.y - 5, 10, S.COLOR_RED);
         // sq.r.pivot = {
@@ -1408,7 +1408,7 @@ class Projectile{
         return true;
     }
 }
-class RoomSel extends Panel{
+class RoomSel extends Panel {
     constructor(w, h, renderer, scaleRes){
         const a = 700 - 98 - 16;
         const b = 285 - 55 - 16;
@@ -1493,9 +1493,9 @@ class RoomSel extends Panel{
         }
     }
 }
-class ChangeRoom extends Panel{
+class ChangeRoom extends Panel {
     constructor(w, h, f){
-        super(w - 131 - 16, 32, 131, 30);
+        super(w - 131 - 16, 16, 131, 30);
         this.box.r.alpha = .8;
 
         const opts = Object.assign({}, S.opts);
@@ -1512,7 +1512,7 @@ class ChangeRoom extends Panel{
         this.cont.addChild(text);
     }
 }
-class Fps{
+class Fps {
     constructor(w, h, smoothie){
         this.cont = new PIXI.Container();
         this.cont.x = 16;
@@ -1538,7 +1538,7 @@ class Fps{
         }, 500);
     }
 }
-class BottomBar extends Panel{
+class BottomBar extends Panel {
     constructor(w, h){
         const a = 700;
         const b = 32;
@@ -1589,7 +1589,7 @@ class BottomBar extends Panel{
         text5.on("click", () => window.open('https://discord.gg/vyZynqZ', '_blank'));
     }
 }
-class Message extends Panel{
+class Message extends Panel {
     /**
      * Text je 40px tak s tím počítej
      * 
@@ -1635,7 +1635,7 @@ class Message extends Panel{
         this.bar.width = this.barWidth / 100 * percent;
     }
 }
-class Hint extends Panel{
+class Hint extends Panel {
     /**
      * @param {*} x pozice nápovědy
      * @param {*} y pozice nápovědy
@@ -1709,7 +1709,7 @@ class GameName {
         this.cont.y = 18
     }
 }
-class Particulator{
+class Particulator {
     /**
      * @param {*} x x
      * @param {*} y y
@@ -1784,7 +1784,7 @@ class Particulator{
         this.r.addChild(sprite);
     }
 }
-class TextPanel extends Panel{
+class TextPanel extends Panel {
     /**
      * 
      * @param {*} x 
@@ -1799,7 +1799,7 @@ class TextPanel extends Panel{
     constructor(x, y, a, b, fSize, text, color, fColor){
         const aa = a == "wrap" ? 1 : a;
         const bb = b == "wrap" ? 1 : b;
-        super(x, y, aa, bb, color)
+        super(x, y, aa, bb, color);
 
         const opts = Object.assign({}, S.opts);
         opts.fontSize = fSize || 15;
@@ -1807,9 +1807,9 @@ class TextPanel extends Panel{
         opts.wordWrapWidth = a - 16;
         if(fColor) opts.fill = fColor;
 
-        const t = new PIXI.Text(text, opts)
-        t.x = 16
-        t.y = 8
+        const t = new PIXI.Text(text, opts);
+        t.x = 16;
+        t.y = 8;
 
         if(a == "wrap"){
             this.box.r.width = t.width + 32;
@@ -1821,7 +1821,7 @@ class TextPanel extends Panel{
         this.cont.addChild(t);
     }
 }
-class HintAdvanced{
+class HintAdvanced {
     constructor(w, h){
         this.cont = new PIXI.Container();
         
@@ -1835,7 +1835,7 @@ class HintAdvanced{
         this.hintButt.box.r.alpha = .8;
         
         this.cont.x = w - this.hintButt.cont.width - 16;
-        this.cont.y = 30 + 16 + 32;
+        this.cont.y = 16 + 30 + 16;
         
         this.main = new TextPanel(0, 0, "wrap", "wrap", 15, S.TXTe_HELP_TEXT);
         this.main.cont.interactive = true;
@@ -1862,7 +1862,7 @@ class HintAdvanced{
         this.cont.addChild(this.hintButt.cont, this.main.cont);
     }
 }
-class LowFps extends Panel{
+class LowFps extends Panel {
     constructor(){
         super(16, 70, 200, 100);
         // this.cont = new PIXI.Container();
@@ -2004,7 +2004,7 @@ class EmitWatcher {
         this.text.cont.visible = false;
     }
 }
-class Calculating extends Panel{
+class Calculating extends Panel {
     constructor(pos){
         const size = {a: 116, b: 50};
         super(pos.x - size.a / 2, pos.y - size.b / 2, size.a, size.b, false, 10);
@@ -2023,6 +2023,36 @@ class Calculating extends Panel{
         setTimeout(() => {
             this.cont.alpha = 1;
         }, 200);
+    }
+}
+class Leaderboard extends Panel {
+    constructor(){
+        super(16, 80, 100, 175);
+        this.box.r.alpha = .8;
+
+        this.opts = Object.assign({}, S.opts);
+        this.opts.fontSize = 13;
+
+        this.tCont = new PIXI.Container();
+        this.cont.addChild(this.tCont);
+
+        // for (let i = 0; i < 10; i++) {
+        //     const t = new PIXI.Text(`${parseInt(i) + 1}: oof`, this.opts);
+        //     t.x = 8;
+        //     t.y = 8 + i * 16;
+        //     this.tCont.addChild(t);
+        // }
+    }
+
+    update(data){
+        this.tCont.removeChildren();
+        for(const i in data){
+            const t = new PIXI.Text(`${parseInt(i) + 1}: ${data[i].name}`, this.opts);
+            t.x = 8;
+            t.y = 8 + i * 16;
+            
+            this.tCont.addChild(t);
+        }
     }
 }
 
@@ -2345,7 +2375,8 @@ class TheGame {
                 ]),
                 chRoom: new ChangeRoom(this.borderW, this.borderH, () => this.chRoom()),
                 fps: new Fps(this.borderW, this.borderH, this.smoothie),
-                hintAdv: new HintAdvanced(this.borderW, this.borderH)
+                hintAdv: new HintAdvanced(this.borderW, this.borderH),
+                leaderboard: new Leaderboard()
             }
             this.uiObj.map.moveView(this.gameCont.x, this.gameCont.y);
             this.updateArr.push(this.emitWatcher.update);
@@ -2363,7 +2394,7 @@ class TheGame {
                 gameW: S.gameW,
                 attackRadius: S.attackRadius,
                 gameORadius: S.gameORadius
-            })
+            });
             this.worker.onmessage = this.afterColide.bind(this);
         }
 
@@ -2373,10 +2404,11 @@ class TheGame {
             this.uiObj.map.cont, 
             this.uiObj.chRoom.cont, 
             this.uiObj.fps.cont,
-            this.uiObj.hintAdv.cont
-        )
+            this.uiObj.hintAdv.cont,
+            this.uiObj.leaderboard.cont
+        );
 
-        this.showOptions()
+        this.showOptions();
 
         if(this.roomSel.selControll == "cursor")
             this.pointerLock();
@@ -2824,10 +2856,6 @@ class TheGame {
             if (gameO) gameO.spawnPoint = data.spawnPoint;
         });
         s.on("update", data => {
-
-            // console.log(Date.now() - this.upTime);
-            // this.upTime = Date.now();
-
             for(const ant of this.antArr){
                 if (data.a[ant.id]) {
                     ant.hp = data.a[ant.id].hp;
@@ -2857,6 +2885,8 @@ class TheGame {
             this.stats.item0 = data.s.item0;
             this.stats.item1 = data.s.item1;
             this.stats.gold = data.s.gold;
+
+            this.uiObj.leaderboard.update(data.l);
         });
         s.on("show", data => console.log(data));
         s.on("disconnect", data => {
@@ -3962,16 +3992,18 @@ class TheGame {
                 [S.TXT_4, "ic21", this.stats, "item0"],
                 [S.TXT_5, "ic23", this.stats, "item1"],
                 [S.TXTe_UNIT, "ic24", this.stats, "ants", this.baseSet, "maxAnt"]
-            ])
+            ]);
             this.uiObj.chRoom = new ChangeRoom(this.borderW, this.borderH, () => this.chRoom());
             this.uiObj.fps = new Fps(this.borderW, this.borderH, this.smoothie);
             this.uiObj.hintAdv = new HintAdvanced(this.borderW, this.borderH);
+            this.uiObj.leaderboard = new Leaderboard();
             this.uiCont.addChild(
                 this.uiObj.statBar.cont, 
                 this.uiObj.map.cont, 
                 this.uiObj.chRoom.cont, 
                 this.uiObj.fps.cont,
-                this.uiObj.hintAdv.cont
+                this.uiObj.hintAdv.cont,
+                this.uiObj.leaderboard.cont
             )
             this.showOptions()
         }

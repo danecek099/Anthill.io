@@ -127,6 +127,8 @@ class Playa {
         this.prom2 = {pending: false}
 
         this.buildTimeOuts = [];
+
+        this.score = 0;
     }
     addQueueMain(promise, then, time){
         // this.queue.push({f, time});
@@ -188,15 +190,6 @@ class Room {
         this.maxPlayers = 9;
 
         this.startGame();
-
-        this.testt = 0;
-
-        // setTimeout(() => {
-        //     this.player42.kill();
-        //     this.path.kill();
-
-        //     this.suicide(this.id);
-        // }, 5000);
     }
     addPlayer(socket, name) {
         socket.join(this.id);
@@ -261,6 +254,9 @@ class Room {
             }, S.gameO[data.type].spawnDelay * 1000);
 
             playa.buildTimeOuts.push(timeOut);
+
+            const cost = S.gameO[data.type].cost;
+            playa.score += cost.gold + cost.item0 + cost.item1;
         } else {
             socket.emit("pre", {owner: socket.id, reqId: data.reqId, data: false});
             // console.error("req gameO: playa, gameBorder, res");
@@ -286,8 +282,9 @@ class Room {
                         () => this.newAnt(data, target.owner),
                         (ant) => {
                             playa.antCount++;
+                            const cost = S.ant[data.type].cost;
+                            playa.score += cost.gold + cost.item0 + cost.item1;
                             ant.name = playa.name;
-                            // this.io.in(this.id).emit("newAnt", ant.props);
                             this.io.in(this.id).emit("newAnt", {props: ant.props, owner: socket.id, reqId: data.reqId});
                             this.player42.do("newAnt", ant.props);
                         },
@@ -337,7 +334,7 @@ class Room {
             this.io.in(this.id).emit("onDis", socket.id);
             this.player42.do("onDis", socket.id);
 
-            if(this.playaArr.length == 0) this.suicide();
+            if(this.playaArr.length == 0) this.stopRoom();
         } else {
             // console.error("disconnect on undefined");
         }
@@ -480,7 +477,6 @@ class Room {
         
         return true;
     }
-
     /**
      * return Promise
      */
@@ -642,8 +638,9 @@ class Room {
                 this.io.to(playa.id).emit("update", {
                     a: this.player42.antArr.updateProps(),
                     g: this.player42.gameOArr.updateProps(),
-                    s: playa.stats
-                })
+                    s: playa.stats,
+                    l: this.leaderboard()
+                });
             }
         }, 15 * S.fpsToMs);
 
@@ -737,8 +734,30 @@ class Room {
             }
 
             clearInterval(this.upIntr);
-            this.suicide(this.id);
+            this.stopRoom();
         }, S.roomRestartTimeout * 1000);
+    }
+    leaderboard(){
+        const l = [];
+
+        for(const playa of this.playaArr){
+            l.push({
+                score: playa.score,
+                name: playa.name
+            });
+        }
+
+        l.sort((a, b) => {
+            return b.score - a.score;
+        });
+
+        return l;
+    }
+    stopRoom(){
+        this.player42.kill();
+        this.path.kill();
+        clearInterval(this.upIntr);
+        this.suicide(this.id);
     }
 }
 
@@ -751,7 +770,7 @@ class Logic {
             parser: JSONParser
         }).listen(300 + "" + id);
 
-        Room.prototype.suicide = (i) => {
+        Room.prototype.suicide = i => {
             this.rooms[i] = new Room(i, this.io, true);
         }
 
@@ -763,24 +782,8 @@ class Logic {
             // new Room(4, this.io, true)
         ]
 
-        // for(const i in this.rooms){
-        //     this.rooms[i].suicide = () => {
-        //         this.rooms[i] = new Room(i, this.io, true);
-        //     }
-        // }
-
         this.connCount = 0;
-
         this.setIo();
-
-        // setInterval(() => {
-        //     console.log(`Connected: ${this.connCount}`);
-
-        //     for(const room of this.rooms){
-        //         console.log(`Room ${room.id}: ${room.playaArr.length}`);
-        //     }
-
-        // }, 20000);
     }
     setIo() {
         this.io.on('connection', (socket) => {
