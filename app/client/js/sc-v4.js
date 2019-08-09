@@ -2304,6 +2304,9 @@ class TheGame {
         this.userLang = navigator.language || navigator.userLanguage;
         console.log(this.userLang);
 
+        this.adBoxPrefix = "anthill-io";
+        this.adBox1 = document.getElementById(this.adBoxPrefix + "-eu_728x90");
+        this.adBox2 = document.getElementById(this.adBoxPrefix + "-eu_300x250");
         this.adPlayed = false;
 
         window.onfocus = () => {
@@ -2513,9 +2516,11 @@ class TheGame {
             this.smoothie.paused = false;
             this.socket.emit("ready");
 
-            // this.adToggle(true);
-            document.getElementById("oof100-eu_728x90").style.display = "block";
-            document.getElementById("oof100-eu_300x250").style.display = "block";
+            this.adToggle(true);
+            // document.getElementById("anthill-io-eu_728x90").style.display = "block";
+            // document.getElementById("anthill-io-eu_300x250").style.display = "block";
+            // document.getElementById("oof100-eu_728x90").style.display = "block";
+            // document.getElementById("oof100-eu_300x250").style.display = "block";
 
             // console.log(window);
             // console.log(document);
@@ -2542,7 +2547,6 @@ class TheGame {
 
                     if(w){
                         this.runtimeToggle();
-
                         this.mainPointer.press = null;
                     }
                 }
@@ -4145,20 +4149,24 @@ class TheGame {
         console.log("ad", show);
 
         if(show){
-            document.getElementById("oof100-eu_728x90").style.display = "block";
-            document.getElementById("oof100-eu_300x250").style.display = "block";
+            // document.getElementById("oof100-eu_728x90").style.display = "block";
+            // document.getElementById("oof100-eu_300x250").style.display = "block";
+            this.adBox1.style.display = "block";
+            this.adBox2.style.display = "block";
 
             //re
-            aiptag.cmd.display.push(function() {
-                aipDisplayTag.display('oof100-eu_300x250');
+            aiptag.cmd.display.push(() => {
+                aipDisplayTag.display(this.adBoxPrefix + '-eu_300x250');
             });
 
-            aiptag.cmd.display.push(function() {
-                aipDisplayTag.display('oof100-eu_728x90');
+            aiptag.cmd.display.push(() => {
+                aipDisplayTag.display(this.adBoxPrefix + '-eu_728x90');
             });
         } else {
-            document.getElementById("oof100-eu_728x90").style.display = "none";
-            document.getElementById("oof100-eu_300x250").style.display = "none";
+            // document.getElementById("oof100-eu_728x90").style.display = "none";
+            // document.getElementById("oof100-eu_300x250").style.display = "none";
+            this.adBox1.style.display = "none";
+            this.adBox2.style.display = "none";
         }
     }
     playAd(){
