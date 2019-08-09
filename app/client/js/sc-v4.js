@@ -2304,7 +2304,8 @@ class TheGame {
         this.userLang = navigator.language || navigator.userLanguage;
         console.log(this.userLang);
 
-        this.adBoxPrefix = "anthill-io";
+        // this.adBoxPrefix = "anthill-io";
+        this.adBoxPrefix = "oof100";
         this.adBox1 = document.getElementById(this.adBoxPrefix + "-eu_728x90");
         this.adBox2 = document.getElementById(this.adBoxPrefix + "-eu_300x250");
         this.adPlayed = false;
