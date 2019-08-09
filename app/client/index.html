@@ -21,7 +21,7 @@
         gtag('config', 'UA-89601236-2');
     </script>
 
-    <script async src="//api.adinplay.com/display/pub/ANT/anthill-io.eu/display.min.js"></script>
+    <!-- <script async src="//api.adinplay.com/display/pub/ANT/anthill-io.eu/display.min.js"></script>
     <script async src="//api.adinplay.com/player/v2/ANT/anthill-io.eu/player.min.js"></script>
     <script>
         var aiptag = aiptag || {};
@@ -56,7 +56,41 @@
 				}
 			});
 		});
-    </script>
+    </script> -->
+    <script>
+        var aiptag = aiptag || {};
+        aiptag.cmd = aiptag.cmd || [];
+        aiptag.cmd.display = aiptag.cmd.display || [];	aiptag.cmd.player = aiptag.cmd.player || [];
+        // Show GDPR consent tool
+        aiptag.gdprShowConsentTool = true;
+        // If you use your own GDPR consent tool please set aiptag.gdprConsent = false; if an EU user has declined or not yet accepted marketing cookies, for users outside the EU or for users that accepted the GDPR please use aiptag.gdprConsent = true;
+    
+        aiptag.cmd.player.push(function() {
+            adplayer = new aipPlayer({
+                AD_WIDTH: 960,
+                AD_HEIGHT: 540,
+                AD_FULLSCREEN: false,
+                AD_CENTERPLAYER: false,
+                LOADING_TEXT: 'loading advertisement',
+                PREROLL_ELEM: function(){return document.getElementById('preroll')},
+                AIP_COMPLETE: function ()  {
+                    /*******************
+                     ***** WARNING *****
+                        *******************
+                        Please do not remove the PREROLL_ELEM
+                        from the page, it will be hidden automaticly.
+                        If you do want to remove it use the AIP_REMOVE callback.
+                    */
+                    alert("Ad Completed");
+                },
+                AIP_REMOVE: function ()  {
+                    // Here it's save to remove the PREROLL_ELEM from the page.
+                    // But it's not necessary.
+                }
+            });
+        });
+        </script>
+        <script async src="//api.adinplay.com/libs/aiptag/pub/ANT/oof100.eu/tag.min.js"></script>
 </head>
 
 <body>

@@ -1586,7 +1586,7 @@ class BottomBar extends Panel{
         // text2.on("click", () => window.open('http://titotu.io', '_blank'));
         // text3.on("click", () => window.open('http://brogames.space', '_blank'));
         text4.on("click", () => window.open('https://iogames.space/', '_blank'));
-        text5.on("click", () => window.open('https://discord.gg/TGhFgcY', '_blank'));
+        text5.on("click", () => window.open('https://discord.gg/vyZynqZ', '_blank'));
     }
 }
 class Message extends Panel{
