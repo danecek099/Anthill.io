@@ -2515,7 +2515,7 @@ class TheGame {
             this.smoothie.paused = false;
             this.socket.emit("ready");
 
-            this.adToggle(true);
+            // this.adToggle(true);
             // document.getElementById("anthill-io-eu_728x90").style.display = "block";
             // document.getElementById("anthill-io-eu_300x250").style.display = "block";
             // document.getElementById("oof100-eu_728x90").style.display = "block";
