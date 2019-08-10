@@ -4141,7 +4141,7 @@ class TheGame {
         }, 2000);
     }
     adToggle(show, re){
-        console.log("ad", show);
+        console.log("ad", show, re);
 
         if(show){
             this.adBox1.style.display = "block";
