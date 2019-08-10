@@ -2515,7 +2515,10 @@ class TheGame {
             this.smoothie.paused = false;
             this.socket.emit("ready");
 
-            this.adToggle(true, false);
+            // this.adToggle(true, false);
+            setTimeout(() => {
+                this.adToggle(true, false);
+            }, 1000);
 
             // console.log(window);
             // console.log(document);
