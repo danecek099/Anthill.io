@@ -2515,11 +2515,7 @@ class TheGame {
             this.smoothie.paused = false;
             this.socket.emit("ready");
 
-            // this.adToggle(true);
-            // document.getElementById("anthill-io-eu_728x90").style.display = "block";
-            // document.getElementById("anthill-io-eu_300x250").style.display = "block";
-            // document.getElementById("oof100-eu_728x90").style.display = "block";
-            // document.getElementById("oof100-eu_300x250").style.display = "block";
+            this.adToggle(true, false);
 
             // console.log(window);
             // console.log(document);
@@ -2961,11 +2957,11 @@ class TheGame {
         s.on("connect", data => {
             console.log("(re)connected");
             this.initMainScreen();
-            this.adToggle(true);
+            this.adToggle(true, true);
         });
         s.on("roomRestart", data => {
             this.initMainScreen();
-            this.adToggle(true);
+            this.adToggle(true, true);
 
             this.playAd();
         });
@@ -3964,7 +3960,7 @@ class TheGame {
     chRoom(){
         this.socket.emit("roomDis");
         this.initMainScreen();
-        this.adToggle(true);
+        this.adToggle(true, true);
 
         this.playAd();
     }
@@ -4144,26 +4140,23 @@ class TheGame {
             this.chRoom();
         }, 2000);
     }
-    adToggle(show){
+    adToggle(show, re){
         console.log("ad", show);
 
         if(show){
-            // document.getElementById("oof100-eu_728x90").style.display = "block";
-            // document.getElementById("oof100-eu_300x250").style.display = "block";
             this.adBox1.style.display = "block";
             this.adBox2.style.display = "block";
 
-            //re
-            aiptag.cmd.display.push(() => {
-                aipDisplayTag.display(this.adBoxPrefix + '-eu_300x250');
-            });
-
-            aiptag.cmd.display.push(() => {
-                aipDisplayTag.display(this.adBoxPrefix + '-eu_728x90');
-            });
+            if(re){
+                aiptag.cmd.display.push(() => {
+                    aipDisplayTag.display(this.adBoxPrefix + '-eu_300x250');
+                });
+    
+                aiptag.cmd.display.push(() => {
+                    aipDisplayTag.display(this.adBoxPrefix + '-eu_728x90');
+                });
+            }
         } else {
-            // document.getElementById("oof100-eu_728x90").style.display = "none";
-            // document.getElementById("oof100-eu_300x250").style.display = "none";
             this.adBox1.style.display = "none";
             this.adBox2.style.display = "none";
         }
