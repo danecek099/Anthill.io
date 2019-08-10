@@ -1,9 +1,6 @@
 'use strict';
 
-// const Set = require("public/gameMainProperties").Settings;
-// const S = new Set();
 const S = new Settings();
-// const JSONParser = require("socket.io-json-parser");
 
 class MujTink extends Tink {
     constructor(p, r) {
