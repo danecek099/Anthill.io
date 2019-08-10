@@ -767,7 +767,7 @@ class Logic {
         workerId = id;
 
         this.io = Sio({
-            parser: JSONParser
+            // parser: JSONParser
         }).listen(300 + "" + id);
 
         Room.prototype.suicide = i => {
