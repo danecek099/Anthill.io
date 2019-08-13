@@ -143,7 +143,7 @@ class Settings{
         this.spawnDistance = 250;
         
         this.baseSet = { // mělo to být spojený se statama...
-            maxAnt: 100, // 10
+            maxAnt: 10, // 10
 
             maxFarm: 6,
             curFarm: 0,
