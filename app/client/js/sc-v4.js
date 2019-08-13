@@ -2510,7 +2510,7 @@ class TheGame {
             }
             if(document.referrer.includes("iogames")){
                 this.mainPointer.press = () => {
-                    const w = window.open("https://anthill-io.eu", "_blank");
+                    const w = window.open("http://anthill-io.eu", "_blank");
 
                     if(w){
                         this.runtimeToggle();
