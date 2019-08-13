@@ -21,42 +21,42 @@
         gtag('config', 'UA-89601236-2');
     </script>
 
-    <script async src="//api.adinplay.com/display/pub/ANT/anthill-io.eu/display.min.js"></script>
-    <script async src="//api.adinplay.com/player/v2/ANT/anthill-io.eu/player.min.js"></script>
+    <script src="//api.adinplay.com/libs/aiptag/pub/ANT/oof100.eu/tag.min.js"></script>
     <script>
-        var aiptag = aiptag || {};
-        aiptag.consented = true; //GDPR setting, please set this value to false if an EU user has declined or not yet accepted marketing cookies, for users outside the EU please use true
-        aiptag.cmd = aiptag.cmd || [];
-        aiptag.cmd.display = aiptag.cmd.display || [];
-        aiptag.cmd.player = aiptag.cmd.player || [];
+        var aiptag = aiptag;
+        aiptag.cmd = aiptag.cmd;
+        aiptag.cmd.display = aiptag.cmd.display;
+        aiptag.cmd.player = aiptag.cmd.player;
+        // Show GDPR consent tool
+        // aiptag.gdprShowConsentTool = true;
+        // aiptag.gdprShowConsentToolButton = true;
+        // If you use your own GDPR consent tool please set aiptag.gdprConsent = false; if an EU user has declined or not yet accepted marketing cookies, for users outside the EU or for users that accepted the GDPR please use aiptag.gdprConsent = true;
 
-        aiptag.cmd.player.push(function () {
-			adplayer = new aipPlayer({
-				AD_WIDTH: 960, // 960
-				AD_HEIGHT: 540, // 540
-				AD_FULLSCREEN: false,
-				AD_CENTERPLAYER: false,
-				LOADING_TEXT: 'loading advertisement',
-				PREROLL_ELEM: function () {
-					return document.getElementById('preroll')
-				},
-				AIP_COMPLETE: function () {
-					/*******************
-					 ***** WARNING *****
-					 *******************
-					 Please do not remove the PREROLL_ELEM
-					 from the page, it will be hidden automaticly.
-					 If you do want to remove it use the AIP_REMOVE callback
-					*/
-					// alert("Ad Completed");
-				},
-				AIP_REMOVE: function () {
-					// Here it's save to remove the PREROLL_ELEM from the page
-					// But it's not necessary
-				}
-			});
-		});
+        aiptag.cmd.player.push(function() {
+            adplayer = new aipPlayer({
+                AD_WIDTH: 960,
+                AD_HEIGHT: 540,
+                AD_FULLSCREEN: false,
+                AD_CENTERPLAYER: false,
+                LOADING_TEXT: 'loading advertisement',
+                PREROLL_ELEM: function(){return document.getElementById('preroll')},
+                AIP_COMPLETE: function ()  {
+                    /*******************
+                     ***** WARNING *****
+                        *******************
+                        Please do not remove the PREROLL_ELEM
+                        from the page, it will be hidden automaticly.
+                        If you do want to remove it use the AIP_REMOVE callback.
+                    */
+                },
+                AIP_REMOVE: function ()  {
+                    // Here it's save to remove the PREROLL_ELEM from the page.
+                    // But it's not necessary.
+                }
+            });
+        });
     </script>
+        
 </head>
 
 <body>
@@ -77,7 +77,7 @@
         <a href="cookies.html">More information</a>
     </div>
 
-    <div id="txtR">
+    <!-- <div id="txtR">
         <div class="center">
             <span class="h">Changelog</span>
         </div>
@@ -114,9 +114,9 @@
                 - Server response improvements
             </p>
         </div>
-    </div>
+    </div> -->
 
-    <div id="txtR1">
+    <!-- <div id="txtR1">
         <div class="center">
             <span class="h">Description</span>
         </div>
@@ -126,24 +126,33 @@
                 You are in charge of an army of ants, collecting resources to build walls and defenses to keep your Headquarters safe.
             </p>
         </div>
-    </div>
+    </div> -->
 
-
-    <div id='anthill-io-eu_300x250'>
+    <!-- <div id='anthill-io-eu_300x250'>
         <script type='text/javascript'>
             aiptag.cmd.display.push(function () {
                 aipDisplayTag.display('anthill-io-eu_300x250');
             });
         </script>
-    </div>
+    </div> -->
+    <div id='oof100-eu_300x250'>
+		<script type='text/javascript'>
+			aiptag.cmd.display.push(function() { aipDisplayTag.display('oof100-eu_300x250'); });
+		</script>
+	</div>
 
-    <div id='anthill-io-eu_728x90'>
+    <!-- <div id='anthill-io-eu_728x90'>
         <script type='text/javascript'>
             aiptag.cmd.display.push(function () {
                 aipDisplayTag.display('anthill-io-eu_728x90');
             });
         </script>
-    </div>
+    </div> -->
+    <div id='oof100-eu_728x90'>
+		<script type='text/javascript'>
+			aiptag.cmd.display.push(function() { aipDisplayTag.display('oof100-eu_728x90'); });
+		</script>
+	</div>
 
     <div id="preroll"></div>
 
@@ -152,13 +161,11 @@
 <script src="js/pixi-4.8.min.js"></script>
 <script src="js/smoothie.js"></script>
 <script src="js/tink.js"></script>
-<script src="js/require.js"></script>
-<script src="js/parser.js"></script>
 <script src="js/socket.io.js"></script>
+<script src="public/gameMainProperties.js"></script>
 <script src="js/sc-v4.js"></script>
 
 <script>
-
     const game = new TheGame();
 
     cookieShow();

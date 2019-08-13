@@ -115,7 +115,8 @@ p{
 	display: none;
 }
 
-#anthill-io-eu_300x250{
+#anthill-io-eu_300x250,
+#oof100-eu_300x250{
 	position: absolute;
 	z-index: 2;
 	top: 58vh;
@@ -128,7 +129,8 @@ p{
 	display: none;
 }
 
-#anthill-io-eu_728x90{
+#anthill-io-eu_728x90,
+#oof100-eu_728x90{
 	position: absolute;
 	z-index: 2;
 	width: 728px;
@@ -168,12 +170,14 @@ p{
 }
 
 @media (max-width: 1024px){
-	#anthill-io-eu_300x250{
+	#anthill-io-eu_300x250,
+	#oof100-eu_300x250{
 		left: 35%;
 		top: 60vh;
 	}
 
-	#anthill-io-eu_728x90{
+	#anthill-io-eu_728x90,
+	#oof100-eu_728x90{
 		display: none !important;
 	}
 
@@ -188,12 +192,14 @@ p{
 }
 
 @media (width: 1280px) and (min-height: 721px){
-	#anthill-io-eu_300x250{
+	#anthill-io-eu_300x250,
+	#oof100-eu_300x250{
 		left: 35%;
 		top: 68vh;
 	}
 
-	#anthill-io-eu_728x90{
+	#anthill-io-eu_728x90,
+	#oof100-eu_728x90{
 		display: none !important;
 	}
 

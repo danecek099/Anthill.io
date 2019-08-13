@@ -29,7 +29,7 @@ class Ant {
         Object.assign(this, S.ant[type]);
 
         if (Ant.id == undefined) {
-            this.id = Ant.id = 0;
+            this.id = Ant.id = 1;
         } else {
             this.id = ++Ant.id;
         }
@@ -63,7 +63,7 @@ class GameO {
         Object.assign(this, prop);
 
         if (GameO.id == undefined) {
-            this.id = GameO.id = 0;
+            this.id = GameO.id = 1;
         } else {
             this.id = ++GameO.id;
         }
@@ -127,6 +127,8 @@ class Playa {
         this.prom2 = {pending: false}
 
         this.buildTimeOuts = [];
+
+        this.score = 0;
     }
     addQueueMain(promise, then, time){
         // this.queue.push({f, time});
@@ -188,15 +190,6 @@ class Room {
         this.maxPlayers = 9;
 
         this.startGame();
-
-        this.testt = 0;
-
-        // setTimeout(() => {
-        //     this.player42.kill();
-        //     this.path.kill();
-
-        //     this.suicide(this.id);
-        // }, 5000);
     }
     addPlayer(socket, name) {
         socket.join(this.id);
@@ -228,8 +221,7 @@ class Room {
     requestGameO(data, socket) {
         const playa = this.playaArr.getById(socket.id);
 
-        if(playa && this.takeResources(S.gameO[data.type].cost, playa)){
-
+        if(playa && this.checkGameBorder(data) && this.takeResources(S.gameO[data.type].cost, playa)){
             data.owner = socket.id;
             this.io.in(this.id).emit("pre", {data, owner: socket.id, reqId: data.reqId});
 
@@ -262,8 +254,12 @@ class Room {
             }, S.gameO[data.type].spawnDelay * 1000);
 
             playa.buildTimeOuts.push(timeOut);
+
+            const cost = S.gameO[data.type].cost;
+            playa.score += cost.gold + cost.item0 + cost.item1;
         } else {
-            // console.error("req gameO: není res nebo playa");
+            socket.emit("pre", {owner: socket.id, reqId: data.reqId, data: false});
+            // console.error("req gameO: playa, gameBorder, res");
         }
     }
     requestAnt(data, socket) {
@@ -286,8 +282,9 @@ class Room {
                         () => this.newAnt(data, target.owner),
                         (ant) => {
                             playa.antCount++;
+                            const cost = S.ant[data.type].cost;
+                            playa.score += cost.gold + cost.item0 + cost.item1;
                             ant.name = playa.name;
-                            // this.io.in(this.id).emit("newAnt", ant.props);
                             this.io.in(this.id).emit("newAnt", {props: ant.props, owner: socket.id, reqId: data.reqId});
                             this.player42.do("newAnt", ant.props);
                         },
@@ -337,7 +334,7 @@ class Room {
             this.io.in(this.id).emit("onDis", socket.id);
             this.player42.do("onDis", socket.id);
 
-            if(this.playaArr.length == 0) this.suicide();
+            if(this.playaArr.length == 0) this.stopRoom();
         } else {
             // console.error("disconnect on undefined");
         }
@@ -460,15 +457,26 @@ class Room {
     }
     test(data, socket) {
         console.log("testRoom", this.id, socket.roomId, socket.id);
-        socket.emit("test", "test socket");
-        this.io.in(this.id).emit("test", "test io");
-        this.io.in(this.id).emit("test", "test sockets.io");
+        this.io.in(this.id).emit("test", "bych");
     }
     showMsg(data, socket){
         this.io.in(this.id).emit("showMsg", data);
     }
     // /event fce
 
+    /**
+     * jestli je uvnitř herního pole
+     */
+    checkGameBorder(data){
+        const dS = S.gameO[data.type].dS;
+
+        if(S.resGcW < data.dX + dS ||
+            S.resGcA > data.dS ||
+            S.resGcW < data.dY + dS ||
+            S.resGcA > data.dY) return false;
+        
+        return true;
+    }
     /**
      * return Promise
      */
@@ -542,7 +550,7 @@ class Room {
 
         this.player42 = new Bot(this.id);
 
-        Promise.all(promArr).then(() => {            
+        Promise.all(promArr).then(() => {
             this.player42.do("start", {
                 g: gameOArr.propsS()
             });
@@ -591,8 +599,6 @@ class Room {
          * autoAttack - jo, nebo ne z kaeru()
          */
         this.player42.autoMoveRequest = (data) => {
-            // const ant = this.player42.antArr.getById(data.antId);
-
             let coor, target;
             if(!data.autoAttack){
                 // normální getCoor
@@ -603,8 +609,6 @@ class Room {
                 coor = this.getCoor(data.target, data.ant, true);
                 target = data.target.getTarget();
             }
-
-            // console.log(data.ant.id, data.autoAttack);
 
             this.path.doPath(data.ant.pos, coor).then(path => {
                 if (path) {
@@ -634,8 +638,9 @@ class Room {
                 this.io.to(playa.id).emit("update", {
                     a: this.player42.antArr.updateProps(),
                     g: this.player42.gameOArr.updateProps(),
-                    s: playa.stats
-                })
+                    s: playa.stats,
+                    l: this.leaderboard()
+                });
             }
         }, 15 * S.fpsToMs);
 
@@ -657,11 +662,16 @@ class Room {
                 if ((to.enemyOf(ant) || to.mineable) && ant.attackSet.indexOf(to.type) == -1) {
                     end.atack = true;
                 }
-                end.x = to.centerX;
-                end.y = to.centerY;
-                end.s = to.dS || to.s;
-            } else 
-                return false;
+
+                if(to.dS != undefined){
+                    end.x = to.dX;
+                    end.y = to.dY;
+                    end.s = to.dS;
+                } else {
+                    end.x = to.centerX;
+                    end.y = to.centerY;
+                }
+            } else return false;
         } else { // je to bod
             end.x = target.x;
             end.y = target.y;
@@ -711,7 +721,7 @@ class Room {
         }
     }
     restartCounter(){
-        this.showMsg("Room will restart in 2min");
+        this.showMsg(`Room will restart in ${S.roomRestartTimeout / 60} min`);
 
         setTimeout(() => {
             console.log(new Date().toLocaleString(), "Room", this.id, "restarted");
@@ -724,8 +734,30 @@ class Room {
             }
 
             clearInterval(this.upIntr);
-            this.suicide(this.id);
-        }, 20000);
+            this.stopRoom();
+        }, S.roomRestartTimeout * 1000);
+    }
+    leaderboard(){
+        const l = [];
+
+        for(const playa of this.playaArr){
+            l.push({
+                score: playa.score,
+                name: playa.name
+            });
+        }
+
+        l.sort((a, b) => {
+            return b.score - a.score;
+        });
+
+        return l;
+    }
+    stopRoom(){
+        this.player42.kill();
+        this.path.kill();
+        clearInterval(this.upIntr);
+        this.suicide(this.id);
     }
 }
 
@@ -735,10 +767,10 @@ class Logic {
         workerId = id;
 
         this.io = Sio({
-            parser: JSONParser
+            // parser: JSONParser
         }).listen(300 + "" + id);
 
-        Room.prototype.suicide = (i) => {
+        Room.prototype.suicide = i => {
             this.rooms[i] = new Room(i, this.io, true);
         }
 
@@ -750,24 +782,8 @@ class Logic {
             // new Room(4, this.io, true)
         ]
 
-        // for(const i in this.rooms){
-        //     this.rooms[i].suicide = () => {
-        //         this.rooms[i] = new Room(i, this.io, true);
-        //     }
-        // }
-
         this.connCount = 0;
-
         this.setIo();
-
-        // setInterval(() => {
-        //     console.log(`Connected: ${this.connCount}`);
-
-        //     for(const room of this.rooms){
-        //         console.log(`Room ${room.id}: ${room.playaArr.length}`);
-        //     }
-
-        // }, 20000);
     }
     setIo() {
         this.io.on('connection', (socket) => {

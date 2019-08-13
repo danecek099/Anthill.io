@@ -1,13 +1,27 @@
 -* ta cesta se musí výrazně smoothnout
     - asi si to napíšu sám, nakonec to není tak těžký
     - eazy
-
--*? gameO jsou zas nějak posunutý směrem dolu
+-* gameO jsou zas nějak posunutý směrem dolu
     - noo a teď mi nejde zaměrit gO s lichým dS
     - špatně si vybíraj nejbližší bod u gO
-    - noo jakože prcat celkem
-
+    - noo jakože prckat celkem
+    - noo jakože nedá se najít cesta ke gO i když tam jakože je
+    - bych
 -* když je první cesta do mainGo tak to crashne
     -  start a end se rovnal
+-* při změně roomky se neresetne Calculating sign
+    - prckat
+-* collider hotov
+-* lze postavit gO mimo hraní plochu -> crash
+-* ta zasraná mapa
+-* výrazně zkrátit živostnost jedný roomky, třeba 3 minuty po vytěžení 4 golden gO
+-* leaderboard
+-* attack gO jdou postavit jenom 2
+-* dal sem pryč changelog a description
 
--> při změně roomky se neresetne Calculating sign
+- klik na reklamu nějak zastaví hru
+
+-> jakože ne že by se uplně uvolňovala paměť noo...
+    - a jako jak to mam asi debugnout?
+    -> aha aha oni se nezabíjej ty java procesy
+    - noo tahle chyba tam byla celkem dlouho

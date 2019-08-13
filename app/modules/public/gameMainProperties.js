@@ -105,7 +105,7 @@ class Settings{
         this.TXT_GAMEOPREV_1 = "More kinds of units";
         this.TXT_GAMEOPREV_2 = "Adds more unit space\rMax 6";
         this.TXT_GAMEOPREV_3 = "Upgrades properties of your units";
-        this.TXT_GAMEOPREV_6 = "Defense tower\rMax 8";
+        this.TXT_GAMEOPREV_6 = "Defense tower\rMax 3";
         this.TXT_GAMEOPREV_8 = "Just a wall";
         this.TXT_GAMEOPREV_9 = "Heals units in a radius from the building";
         this.TXT_ATTACK_THIS = "Attack with all units";
@@ -119,6 +119,7 @@ class Settings{
 
         // gameName
         this.GM = "Anthill.io";
+        this.motd = "Have fun!";
         
         this.gameW = 10000;
         this.visibleAreaDef = 700; // neměnit! posere to UI. bylo to 700 kdybys to stejně zkurvil
@@ -130,11 +131,13 @@ class Settings{
         this.fps = 12; // 12
         this.attackRadius = 150;
         this.attackMax = 400;
-        this.gameORadius = 180; // 150
+        this.gameORadius = 180; // attack, 150
+        this.gameOHealRadius = 150; // heal, 150
         this.antTimeout = 500;
         this.gameOGapPx = -8; // -8
         this.gameOAttackDelay = 300;
-        this.roomRestartTreshold = 1;
+        this.roomRestartTreshold = 5;
+        this.roomRestartTimeout = 180; // s
         this.healDelay = 1000;
         this.responseDelay = 1800; // ms
         this.spawnDistance = 250;
@@ -145,7 +148,7 @@ class Settings{
             maxFarm: 6,
             curFarm: 0,
 
-            maxTower: 2,
+            maxTower: 3,
             curTower: 0
         }
         this.stats = {
@@ -204,7 +207,7 @@ class Settings{
             // zeď
             8: {dS: 2, defHp: 200, armor: 3, color: this.COLOR_ASPHALT, icon: "ic6", shape: 3, spawnDelay: 3, cost: {item0: 70, item1: 50, gold: 70}, lvl: 1},
             // heal
-            9: {dS: 2, defHp: 100, armor: 3, color: this.COLOR_GREEN, icon: "ic16", shape: 3, spawnDelay: 10, cost: {item0: 400, item1: 100, gold: 400}, lvl: 1, healVal: 1, healRad: 150},
+            9: {dS: 2, defHp: 100, armor: 3, color: this.COLOR_GREEN, icon: "ic16", shape: 3, spawnDelay: 10, cost: {item0: 400, item1: 100, gold: 400}, lvl: 1, healVal: 1},
         }
 
         /**
@@ -362,16 +365,23 @@ class Settings{
             fill: this.FONT_COLOR,
             fontFamily: "\"Lucida Sans Unicode\", \"Lucida Grande\", sans-serif"
         }
-
-        this.motd = "Check out the Anthill.io Discord channel!";
     }
 
+    /**
+     * gameW / gridRess
+     */
     get resW(){
         return this.gameW / this.gridRess;
     }
+    /**
+     * gameBorder / gridRess
+     */
     get resGcA(){
         return this.gameBorder / this.gridRess;
     }
+    /**
+     * (gameW - gameBorder) / gridRess
+     */
     get resGcW(){
         // return ((this.gameW - this.gameBorder) / this.gridRess) + 1;
         return ((this.gameW - this.gameBorder) / this.gridRess)
@@ -501,6 +511,18 @@ Object.defineProperty(Array.prototype, 'propsColl', {
         this.forEach(b => {
             if(b.doCollide)
                 a[b.id] = b.collProps
+        });
+        return a;
+    }
+});
+
+Object.defineProperty(Array.prototype, 'propsCollJava', {
+    enumerable: false,
+    value: function () {
+        const a = [];
+        this.forEach(b => {
+            if(b.doCollide)
+                a.push(b.collProps);
         });
         return a;
     }

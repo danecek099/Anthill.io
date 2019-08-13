@@ -4,6 +4,7 @@
   "description": "ゲーム",
   "main": "main.js",
   "dependencies": {
+    "@rauschma/stringio": "^1.4.0",
     "socket.io": "^2.1.0",
     "socket.io-json-parser": "^2.1.0"
   },
