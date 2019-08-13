@@ -230,6 +230,8 @@ public final class App {
         in.x = Math.round(in.x / gridRess);
         in.y = Math.round(in.y / gridRess);
         Point res = findPoint(in.x, in.y);
+
+        if(res != null)
         res.set(
             res.x * gridRess,
             res.y * gridRess
