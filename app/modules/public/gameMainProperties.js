@@ -119,7 +119,7 @@ class Settings{
 
         // gameName
         this.GM = "Anthill.io";
-        this.motd = "NEWS: Currently experiencing some issues, the game may be unavailable";
+        this.motd = "Have fun!";
         
         this.gameW = 10000;
         this.visibleAreaDef = 700; // neměnit! posere to UI. bylo to 700 kdybys to stejně zkurvil
