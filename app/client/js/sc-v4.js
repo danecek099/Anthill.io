@@ -2529,7 +2529,7 @@ class TheGame {
             if(document.location.ancestorOrigins && document.location.ancestorOrigins.length != 0){
                 if(document.location.ancestorOrigins[0].includes("titotu") || document.location.ancestorOrigins[0].includes("iogames")){
                     this.mainPointer.press = () => {
-                        const w = window.open("https://oof100.eu", "_blank");
+                        const w = window.open("http://oof100.eu", "_blank");
 
                         if(w){
                             this.runtimeToggle();
@@ -2541,7 +2541,7 @@ class TheGame {
             }
             if(document.referrer.includes("iogames")){
                 this.mainPointer.press = () => {
-                    const w = window.open("http://anthill-io.eu", "_blank");
+                    const w = window.open("http://oof100.eu", "_blank");
 
                     if(w){
                         this.runtimeToggle();
