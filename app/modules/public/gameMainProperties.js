@@ -178,9 +178,9 @@ class Settings{
             // jednotka na těžbu / základní jednotka                                                                               3
             10: {s: 18, defSpeed: 8, shape: 3, color: this.COLOR_GREEN, icon: "ic24", dmgVal: 1, defHp: 100, armor: 0, spawnDelay: 0, attackSet: [], cost: {item0: 5, item1: 5, gold: 5}, lvl: 1},
             // jednotka pro útok
-            11: {s: 18, defSpeed: 5, shape: 3, color: this.COLOR_VIOLET, icon: "ic25", dmgVal: 5, defHp: 200, armor: 0, spawnDelay: 5, attackSet: [4, 5, 7], cost: {item0: 60, item1: 150, gold: 70}, lvl: 1},
+            11: {s: 18, defSpeed: 5, shape: 3, color: this.COLOR_VIOLET, icon: "ic25", dmgVal: 3, defHp: 200, armor: 0, spawnDelay: 5, attackSet: [4, 5, 7], cost: {item0: 60, item1: 150, gold: 70}, lvl: 1},
             // průzkumná jednotka
-            12: {s: 18, defSpeed: 12, shape: 3, color: this.COLOR_BLUE, icon: "ic26", dmgVal: 3, defHp: 50, armor: 3, spawnDelay: 4, attackSet: [4, 5, 7], cost: {item0: 100, item1: 40, gold: 50}, lvl: 1},
+            12: {s: 18, defSpeed: 12, shape: 3, color: this.COLOR_BLUE, icon: "ic26", dmgVal: 2, defHp: 50, armor: 3, spawnDelay: 4, attackSet: [4, 5, 7], cost: {item0: 100, item1: 40, gold: 50}, lvl: 1},
             //test
             // 13: {s: 18, defSpeed: 40, shape: 3, color: this.COLOR_BLUE, icon: "ic26", dmgVal: 6, defHp: 50, armor: 3, spawnDelay: 1, attackSet: [], cost: {item0: 0, item1: 0, gold: 0}}
         }
