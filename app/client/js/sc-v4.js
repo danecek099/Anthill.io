@@ -2526,29 +2526,29 @@ class TheGame {
             // console.log(document.location.ancestorOrigins);
             // console.log(document.location.ancestorOrigins[0]);
 
-            if(document.location.ancestorOrigins && document.location.ancestorOrigins.length != 0){
-                if(document.location.ancestorOrigins[0].includes("titotu") || document.location.ancestorOrigins[0].includes("iogames")){
-                    this.mainPointer.press = () => {
-                        const w = window.open("https://oof100.eu", "_blank");
+            // if(document.location.ancestorOrigins && document.location.ancestorOrigins.length != 0){
+            //     if(document.location.ancestorOrigins[0].includes("titotu") || document.location.ancestorOrigins[0].includes("iogames")){
+            //         this.mainPointer.press = () => {
+            //             const w = window.open("http://oof100.eu", "_blank");
 
-                        if(w){
-                            this.runtimeToggle();
+            //             if(w){
+            //                 this.runtimeToggle();
     
-                            this.mainPointer.press = null;
-                        }
-                    }
-                }
-            }
-            if(document.referrer.includes("iogames")){
-                this.mainPointer.press = () => {
-                    const w = window.open("https://oof100.eu", "_blank");
+            //                 this.mainPointer.press = null;
+            //             }
+            //         }
+            //     }
+            // }
+            // if(document.referrer.includes("iogames")){
+            //     this.mainPointer.press = () => {
+            //         const w = window.open("http://oof100.eu", "_blank");
 
-                    if(w){
-                        this.runtimeToggle();
-                        this.mainPointer.press = null;
-                    }
-                }
-            }
+            //         if(w){
+            //             this.runtimeToggle();
+            //             this.mainPointer.press = null;
+            //         }
+            //     }
+            // }
         }
 
         // setTimeout(() => {
