@@ -152,9 +152,9 @@ class Settings{
             curTower: 0
         }
         this.stats = {
-            item0: 3000,  // obyč mrdky, 30
-            item1: 3000,  // pro ty, co budou spíš útočit, 30
-            gold: 3000,   // tak nějak pro všechny stejný, 30
+            item0: 30,  // obyč mrdky, 30
+            item1: 30,  // pro ty, co budou spíš útočit, 30
+            gold: 30,   // tak nějak pro všechny stejný, 30
             ants: 0
         }
 
