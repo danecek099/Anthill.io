@@ -2438,6 +2438,8 @@ class TheGame {
 
         this.adToggle(false);
         this.fpsWatch();
+
+        this.toggleKeys(false);
         this.toggleKeys(true);
     }
     initMainScreen(re){
