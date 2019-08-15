@@ -2437,8 +2437,8 @@ class TheGame {
         }
 
         this.adToggle(false);
-
         this.fpsWatch();
+        this.toggleKeys(true);
     }
     initMainScreen(re){
         this.renderer.view.onclick = () => {};
