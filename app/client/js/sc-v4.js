@@ -2261,31 +2261,31 @@ class TheGame {
             unDown: () => this.gameCont.down = false
         }
 
-        this.keys = [
-            this.t.keyboard(32 /* space */ ).setPress(this.keyF.space),
-            this.t.keyboard(69 /* e */ ).setPress(this.keyF.e),
-            this.t.keyboard(82 /* r */ ).setPress(this.keyF.r),
-            this.t.keyboard(84 /* t */ ).setPress(this.keyF.t),
-            this.t.keyboard(90 /* z */ ).setPress(this.keyF.z),
+        // this.keys = [
+        //     this.t.keyboard(32 /* space */ ).setPress(this.keyF.space),
+        //     this.t.keyboard(69 /* e */ ).setPress(this.keyF.e),
+        //     this.t.keyboard(82 /* r */ ).setPress(this.keyF.r),
+        //     this.t.keyboard(84 /* t */ ).setPress(this.keyF.t),
+        //     this.t.keyboard(90 /* z */ ).setPress(this.keyF.z),
             
-            this.t.keyboard(37 /* left */ ).setPress(this.keyF.left),
-            this.t.keyboard(38 /* up */ ).setPress(this.keyF.up),
-            this.t.keyboard(39 /* right */ ).setPress(this.keyF.right),
-            this.t.keyboard(40 /* down */ ).setPress(this.keyF.down),
-            this.t.keyboard(37 /* left */ ).setRelease(this.keyF.unLeft),
-            this.t.keyboard(38 /* up */ ).setRelease(this.keyF.unUp),
-            this.t.keyboard(39 /* right */ ).setRelease(this.keyF.unRight),
-            this.t.keyboard(40 /* down */ ).setRelease(this.keyF.unDown),
+        //     this.t.keyboard(37 /* left */ ).setPress(this.keyF.left),
+        //     this.t.keyboard(38 /* up */ ).setPress(this.keyF.up),
+        //     this.t.keyboard(39 /* right */ ).setPress(this.keyF.right),
+        //     this.t.keyboard(40 /* down */ ).setPress(this.keyF.down),
+        //     this.t.keyboard(37 /* left */ ).setRelease(this.keyF.unLeft),
+        //     this.t.keyboard(38 /* up */ ).setRelease(this.keyF.unUp),
+        //     this.t.keyboard(39 /* right */ ).setRelease(this.keyF.unRight),
+        //     this.t.keyboard(40 /* down */ ).setRelease(this.keyF.unDown),
             
-            this.t.keyboard(65 /* a */ ).setPress(this.keyF.left),
-            this.t.keyboard(87 /* w */ ).setPress(this.keyF.up),
-            this.t.keyboard(68 /* d */ ).setPress(this.keyF.right),
-            this.t.keyboard(83 /* s */ ).setPress(this.keyF.down),
-            this.t.keyboard(65 /* left */ ).setRelease(this.keyF.unLeft),
-            this.t.keyboard(87 /* up */ ).setRelease(this.keyF.unUp),
-            this.t.keyboard(68 /* right */ ).setRelease(this.keyF.unRight),
-            this.t.keyboard(83 /* down */ ).setRelease(this.keyF.unDown)
-        ]
+        //     this.t.keyboard(65 /* a */ ).setPress(this.keyF.left),
+        //     this.t.keyboard(87 /* w */ ).setPress(this.keyF.up),
+        //     this.t.keyboard(68 /* d */ ).setPress(this.keyF.right),
+        //     this.t.keyboard(83 /* s */ ).setPress(this.keyF.down),
+        //     this.t.keyboard(65 /* left */ ).setRelease(this.keyF.unLeft),
+        //     this.t.keyboard(87 /* up */ ).setRelease(this.keyF.unUp),
+        //     this.t.keyboard(68 /* right */ ).setRelease(this.keyF.unRight),
+        //     this.t.keyboard(83 /* down */ ).setRelease(this.keyF.unDown)
+        // ]
 
         window.addEventListener('resize', this.resize.bind(this));
 
@@ -2399,6 +2399,32 @@ class TheGame {
                 gameORadius: S.gameORadius
             });
             this.worker.onmessage = this.afterColide.bind(this);
+
+            this.keys = [
+                this.t.keyboard(32 /* space */ ).setPress(this.keyF.space),
+                this.t.keyboard(69 /* e */ ).setPress(this.keyF.e),
+                this.t.keyboard(82 /* r */ ).setPress(this.keyF.r),
+                this.t.keyboard(84 /* t */ ).setPress(this.keyF.t),
+                this.t.keyboard(90 /* z */ ).setPress(this.keyF.z),
+                
+                this.t.keyboard(37 /* left */ ).setPress(this.keyF.left),
+                this.t.keyboard(38 /* up */ ).setPress(this.keyF.up),
+                this.t.keyboard(39 /* right */ ).setPress(this.keyF.right),
+                this.t.keyboard(40 /* down */ ).setPress(this.keyF.down),
+                this.t.keyboard(37 /* left */ ).setRelease(this.keyF.unLeft),
+                this.t.keyboard(38 /* up */ ).setRelease(this.keyF.unUp),
+                this.t.keyboard(39 /* right */ ).setRelease(this.keyF.unRight),
+                this.t.keyboard(40 /* down */ ).setRelease(this.keyF.unDown),
+                
+                this.t.keyboard(65 /* a */ ).setPress(this.keyF.left),
+                this.t.keyboard(87 /* w */ ).setPress(this.keyF.up),
+                this.t.keyboard(68 /* d */ ).setPress(this.keyF.right),
+                this.t.keyboard(83 /* s */ ).setPress(this.keyF.down),
+                this.t.keyboard(65 /* left */ ).setRelease(this.keyF.unLeft),
+                this.t.keyboard(87 /* up */ ).setRelease(this.keyF.unUp),
+                this.t.keyboard(68 /* right */ ).setRelease(this.keyF.unRight),
+                this.t.keyboard(83 /* down */ ).setRelease(this.keyF.unDown)
+            ]
         }
 
         this.uiCont.renderable = true;
