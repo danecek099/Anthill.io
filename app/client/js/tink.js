@@ -864,6 +864,7 @@ class Tink {
 
     //The `downHandler`
     key.downHandler = event => {
+      console.log(event);
       if(key.enabled){
         if (event.keyCode === key.code) {
           if (key.isUp && key.press) key.press();
