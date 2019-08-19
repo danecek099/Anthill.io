@@ -1,23 +1,13 @@
 "use strict";
 
-/**
- * save 28.5.18 + úprava na novej prop.js
- */
-
 const Settings = require('./public/gameMainProperties').Settings;
-// const Path = require("./pather");
 const Path = require("./javaPather");
-const JSONParser = require('socket.io-json-parser');
 const Sio = require('socket.io');
 const Bot = require("./bot");
 
 const S = new Settings();
 
 let workerId;
-let availableServers;
-process.on('message', (message) => {
-    availableServers = JSON.parse(message);
-});
 
 class Ant {
     constructor(x, y, type, owner) {
@@ -182,8 +172,11 @@ class Room {
         this.id = id;
         this.io = io;
         
-        // this.path = new Path(S);
         this.path = new Path(id);
+        this.path.suicide = () => {
+            console.log("SUICIDE FUCKING DOPÍČE");
+            process.exit(1);
+        }
 
         this.playaArr = [];
         this.canConnect = canConnect;

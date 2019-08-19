@@ -176,7 +176,7 @@ class Settings{
         */
         this.ant = {
             // jednotka na těžbu / základní jednotka                                                                               3
-            10: {s: 18, defSpeed: 8, shape: 3, color: this.COLOR_GREEN, icon: "ic24", dmgVal: 1, defHp: 100, armor: 0, spawnDelay: 0, attackSet: [], cost: {item0: 5, item1: 5, gold: 5}, lvl: 1},
+            10: {s: 18, defSpeed: 8, shape: 3, color: this.COLOR_GREEN, icon: "ic24", dmgVal: 1, defHp: 100, armor: 0, spawnDelay: 3, attackSet: [], cost: {item0: 5, item1: 5, gold: 5}, lvl: 1},
             // jednotka pro útok
             11: {s: 18, defSpeed: 5, shape: 3, color: this.COLOR_VIOLET, icon: "ic25", dmgVal: 3, defHp: 200, armor: 0, spawnDelay: 5, attackSet: [4, 5, 7], cost: {item0: 60, item1: 150, gold: 70}, lvl: 1},
             // průzkumná jednotka

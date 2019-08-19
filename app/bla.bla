@@ -18,10 +18,11 @@
 -* leaderboard
 -* attack gO jdou postavit jenom 2
 -* dal sem pryč changelog a description
-
-- klik na reklamu nějak zastaví hru
-
--> jakože ne že by se uplně uvolňovala paměť noo...
+-* jakože ne že by se uplně uvolňovala paměť noo...
     - a jako jak to mam asi debugnout?
     -> aha aha oni se nezabíjej ty java procesy
     - noo tahle chyba tam byla celkem dlouho
+
+->! když umře java, musí i node
+
+- klik na reklamu nějak zastaví hru

@@ -36,8 +36,11 @@ class Path {
      * return undefined
      */
     removeObject(gameObjects){
-        // console.log(JSON.stringify(["removeObject", ...gameObjects]));
-        this.process.stdin.write(JSON.stringify(["removeObject", ...gameObjects]) + "\n");
+        try {
+            this.process.stdin.write(JSON.stringify(["removeObject", ...gameObjects]) + "\n");
+        } catch (error) {
+            this.suicide();
+        }
     }
 
     /**
@@ -46,8 +49,11 @@ class Path {
      * return undefined
      */
     addObject(gameObjects){
-        // console.log(JSON.stringify(["addObject", ...gameObjects]));
-        this.process.stdin.write(JSON.stringify(["addObject", ...gameObjects]) + "\n");
+        try {
+            this.process.stdin.write(JSON.stringify(["addObject", ...gameObjects]) + "\n");
+        } catch (error) {
+            this.suicide();
+        }
     }
 
     /**
@@ -60,22 +66,18 @@ class Path {
                 jo(retVal);
             });
             
-            // console.log(JSON.stringify(["findPath", reqId, {
-            //     x1: start.x,
-            //     y1: start.y,
-            //     x2: end.x,
-            //     y2: end.y,
-            //     s: end.s,
-            //     attack: end.atack
-            // }]));
-            this.process.stdin.write(JSON.stringify(["findPath", reqId, {
-                x1: start.x,
-                y1: start.y,
-                x2: end.x,
-                y2: end.y,
-                s: end.s,
-                attack: end.atack
-            }]) + "\n");
+            try {
+                this.process.stdin.write(JSON.stringify(["findPath", reqId, {
+                    x1: start.x,
+                    y1: start.y,
+                    x2: end.x,
+                    y2: end.y,
+                    s: end.s,
+                    attack: end.atack
+                }]) + "\n");
+            } catch (error) {
+                this.suicide();
+            }
         });
     }
 
@@ -91,7 +93,11 @@ class Path {
                 jo(retVal[0]);
             });
 
-            this.process.stdin.write(JSON.stringify(["findPointEx", reqId, {x, y}]) + "\n");
+            try {
+                this.process.stdin.write(JSON.stringify(["findPointEx", reqId, {x, y}]) + "\n");
+            } catch (error) {
+                this.suicide();
+            }
         });
     }
 
@@ -107,7 +113,11 @@ class Path {
                 jo(retVal[0]);
             });
 
-            this.process.stdin.write(JSON.stringify(["findFreePos", reqId, {dS}]) + "\n");
+            try {
+                this.process.stdin.write(JSON.stringify(["findFreePos", reqId, {dS}]) + "\n");
+            } catch (error) {
+                this.suicide();
+            }
         });
     }
 
