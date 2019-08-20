@@ -776,7 +776,7 @@ class Logic {
 
         this.rooms = [
             new Room(0, this.io, true),
-            // new Room(1, this.io, true),
+            new Room(1, this.io, true),
             // new Room(2, this.io, true),
             // new Room(3, this.io, true),
             // new Room(4, this.io, true)
