@@ -2437,7 +2437,6 @@ class TheGame {
         }
 
         this.adToggle(false);
-
         this.fpsWatch();
     }
     initMainScreen(re){
@@ -4016,6 +4015,7 @@ class TheGame {
         }
     }
     toggleKeys(bool = false){
+        console.log("keys", bool);
         this.keys.forEach(key => key.enabled = bool);
     }
     showHintRoomSel(){
