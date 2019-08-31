@@ -1979,13 +1979,11 @@ class EmitWatcher {
         for(const type in this.emits){ // object
             for(let i = 0; i < this.emits[type].length; i++){
                 if(this.emits[type][i] && Date.now() - this.emits[type][i].time > S.responseDelay){ // je tam moc dlouho
-    
                     if(!this.icon.visible){
                         this.show();
+                    }
 
-                        return;
-                    } else return;
-    
+                    return;
                 }
             }
         }
@@ -2162,7 +2160,7 @@ class TheGame {
                 size: false,
                 tile: false
             }
-        })
+        });
         this.smoothie.start();
         
         this.t = new MujTink(PIXI, this.renderer.view);
@@ -2285,7 +2283,7 @@ class TheGame {
             this.t.keyboard(87 /* up */ ).setRelease(this.keyF.unUp),
             this.t.keyboard(68 /* right */ ).setRelease(this.keyF.unRight),
             this.t.keyboard(83 /* down */ ).setRelease(this.keyF.unDown)
-        ]
+        ];
 
         window.addEventListener('resize', this.resize.bind(this));
 
@@ -2437,6 +2435,9 @@ class TheGame {
         }
 
         this.adToggle(false);
+        setTimeout(() => {
+            this.adToggle(false);
+        }, 1000);
         this.fpsWatch();
     }
     initMainScreen(re){
@@ -3034,7 +3035,7 @@ class TheGame {
             // odemkne další budovy
             if(prop.type == 0){
                 this.onlyMain = false;
-                this.showOptions()
+                this.showOptions();
 
                 g.onDead = () => this.endGame();
                 this.uiObj.map.add(g, true);
@@ -3047,7 +3048,7 @@ class TheGame {
         if(prop.owner == "default"){
             const p = new Particulator(g.s / 2, g.s / 2, g.s / 2 + 14, 5, g);
             this.updateArr.push(p.update.bind(p));
-            g.r.addChildAt(p.r, 0)
+            g.r.addChildAt(p.r, 0);
         }
     }
     /**

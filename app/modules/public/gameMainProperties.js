@@ -207,7 +207,7 @@ class Settings{
             // zeď
             8: {dS: 2, defHp: 200, armor: 3, color: this.COLOR_ASPHALT, icon: "ic6", shape: 3, spawnDelay: 3, cost: {item0: 70, item1: 50, gold: 70}, lvl: 1},
             // heal
-            9: {dS: 2, defHp: 100, armor: 3, color: this.COLOR_GREEN, icon: "ic16", shape: 3, spawnDelay: 10, cost: {item0: 400, item1: 100, gold: 400}, lvl: 1, healVal: 1},
+            9: {dS: 2, defHp: 100, armor: 3, color: this.COLOR_GREEN, icon: "ic16", shape: 3, spawnDelay: 10, cost: {item0: 400, item1: 100, gold: 400}, lvl: 1, healVal: 1, healRad: this.gameOHealRadius},
         }
 
         /**
@@ -223,34 +223,34 @@ class Settings{
 
         this.upgrade = { // představuje tlačítka
             0: { to: "ant", type: 10, desc: this.TXT_10,
-                2: {cost: {item0: 100, item1: 50, gold: 50}, up: [{key: "dmgVal", val: 1}, {key: "defHp", val: 110}, {key: "defSpeed", val: 9}], upgradeDelay: 7},
-                3: {cost: {item0: 200, item1: 80, gold: 80}, up: [{key: "dmgVal", val: 1}, {key: "defHp", val: 120}, {key: "defSpeed", val: 10}], upgradeDelay: 10},
-                4: {cost: {item0: 350, item1: 200, gold: 200}, up: [{key: "dmgVal", val: 2}, {key: "defHp", val: 130}, {key: "defSpeed", val: 11}, {key: "armor", val: 1}], upgradeDelay: 13},
-                5: {cost: {item0: 420, item1: 250, gold: 250}, up: [{key: "dmgVal", val: 2}, {key: "defHp", val: 140}, {key: "defSpeed", val: 12}, {key: "armor", val: 2}], upgradeDelay: 17}
+                2: {cost: {item0: 400, item1: 200, gold: 200}, up: [{key: "dmgVal", val: 1}, {key: "defHp", val: 110}, {key: "defSpeed", val: 9}], upgradeDelay: 7},
+                3: {cost: {item0: 600, item1: 400, gold: 400}, up: [{key: "dmgVal", val: 1}, {key: "defHp", val: 120}, {key: "defSpeed", val: 10}], upgradeDelay: 10},
+                4: {cost: {item0: 1000, item1: 800, gold: 800}, up: [{key: "dmgVal", val: 2}, {key: "defHp", val: 130}, {key: "defSpeed", val: 11}, {key: "armor", val: 1}], upgradeDelay: 13},
+                5: {cost: {item0: 1500, item1: 1100, gold: 1100}, up: [{key: "dmgVal", val: 2}, {key: "defHp", val: 140}, {key: "defSpeed", val: 12}, {key: "armor", val: 2}], upgradeDelay: 17}
             },
             1: { to: "ant", type: 11, desc: this.TXT_11,
-                2: {cost: {item0: 100, item1: 50, gold: 50}, up: [{key: "dmgVal", val: 6}, {key: "defHp", val: 220}, {key: "defSpeed", val: 6}], upgradeDelay: 7},
-                3: {cost: {item0: 200, item1: 150, gold: 150}, up: [{key: "dmgVal", val: 7}, {key: "defHp", val: 240}, {key: "defSpeed", val: 7}, {key: "armor", val: 2}], upgradeDelay: 10},
-                4: {cost: {item0: 350, item1: 200, gold: 200}, up: [{key: "dmgVal", val: 7}, {key: "defHp", val: 260}, {key: "defSpeed", val: 8}, {key: "armor", val: 2}], upgradeDelay: 13},
-                5: {cost: {item0: 420, item1: 300, gold: 300}, up: [{key: "dmgVal", val: 8}, {key: "defHp", val: 280}, {key: "defSpeed", val: 9}], upgradeDelay: 17}
+                2: {cost: {item0: 400, item1: 200, gold: 200}, up: [{key: "dmgVal", val: 6}, {key: "defHp", val: 220}, {key: "defSpeed", val: 6}], upgradeDelay: 7},
+                3: {cost: {item0: 600, item1: 400, gold: 400}, up: [{key: "dmgVal", val: 7}, {key: "defHp", val: 240}, {key: "defSpeed", val: 7}, {key: "armor", val: 2}], upgradeDelay: 10},
+                4: {cost: {item0: 1000, item1: 800, gold: 800}, up: [{key: "dmgVal", val: 7}, {key: "defHp", val: 260}, {key: "defSpeed", val: 8}, {key: "armor", val: 2}], upgradeDelay: 13},
+                5: {cost: {item0: 1500, item1: 1100, gold: 1100}, up: [{key: "dmgVal", val: 8}, {key: "defHp", val: 280}, {key: "defSpeed", val: 9}], upgradeDelay: 17}
             },
             2: { to: "ant", type: 12, desc: this.TXT_12,
-                2: {cost: {item0: 100, item1: 50, gold: 50}, up: [{key: "dmgVal", val: 3}, {key: "defHp", val: 70}, {key: "defSpeed", val: 13}], upgradeDelay: 7},
-                3: {cost: {item0: 200, item1: 150, gold: 150}, up: [{key: "dmgVal", val: 4}, {key: "defHp", val: 80}, {key: "defSpeed", val: 14}, {key: "armor", val: 5}], upgradeDelay: 10},
-                4: {cost: {item0: 350, item1: 200, gold: 200}, up: [{key: "dmgVal", val: 4}, {key: "defHp", val: 90}, {key: "defSpeed", val: 15}, {key: "armor", val: 5}], upgradeDelay: 13},
-                5: {cost: {item0: 420, item1: 300, gold: 300}, up: [{key: "dmgVal", val: 5}, {key: "defHp", val: 100}, {key: "defSpeed", val: 16}], upgradeDelay: 17}
+                2: {cost: {item0: 400, item1: 200, gold: 200}, up: [{key: "dmgVal", val: 3}, {key: "defHp", val: 70}, {key: "defSpeed", val: 13}], upgradeDelay: 7},
+                3: {cost: {item0: 600, item1: 400, gold: 400}, up: [{key: "dmgVal", val: 4}, {key: "defHp", val: 80}, {key: "defSpeed", val: 14}, {key: "armor", val: 5}], upgradeDelay: 10},
+                4: {cost: {item0: 1000, item1: 800, gold: 800}, up: [{key: "dmgVal", val: 4}, {key: "defHp", val: 90}, {key: "defSpeed", val: 15}, {key: "armor", val: 5}], upgradeDelay: 13},
+                5: {cost: {item0: 1500, item1: 1100, gold: 1100}, up: [{key: "dmgVal", val: 5}, {key: "defHp", val: 100}, {key: "defSpeed", val: 16}], upgradeDelay: 17}
             },
             3: { to: "gameO", type: 8, desc: this.TXT_8,
-                2: {cost: {item0: 100, item1: 50, gold: 50}, up: [{key: "defHp", val: 220}, {key: "armor", val: 3}], upgradeDelay: 7},
-                3: {cost: {item0: 200, item1: 150, gold: 150}, up: [{key: "defHp", val: 240}, {key: "armor", val: 3}], upgradeDelay: 10},
-                4: {cost: {item0: 350, item1: 200, gold: 200}, up: [{key: "defHp", val: 270}, {key: "armor", val: 4}], upgradeDelay: 13},
-                5: {cost: {item0: 420, item1: 300, gold: 300}, up: [{key: "defHp", val: 310}, {key: "armor", val: 5}], upgradeDelay: 17}
+                2: {cost: {item0: 400, item1: 200, gold: 200}, up: [{key: "defHp", val: 220}, {key: "armor", val: 3}], upgradeDelay: 7},
+                3: {cost: {item0: 600, item1: 400, gold: 400}, up: [{key: "defHp", val: 240}, {key: "armor", val: 3}], upgradeDelay: 10},
+                4: {cost: {item0: 1000, item1: 800, gold: 800}, up: [{key: "defHp", val: 270}, {key: "armor", val: 4}], upgradeDelay: 13},
+                5: {cost: {item0: 1500, item1: 1100, gold: 1100}, up: [{key: "defHp", val: 310}, {key: "armor", val: 5}], upgradeDelay: 17}
             },
             4: { to: "gameO", type: 9, desc: this.TXT_9,
-                2: {cost: {item0: 100, item1: 50, gold: 50}, up: [{key: "defHp", val: 150}, {key: "armor", val: 3}], upgradeDelay: 7},
-                3: {cost: {item0: 200, item1: 150, gold: 150}, up: [{key: "defHp", val: 200}, {key: "armor", val: 3}, {key: "healVal", val: 2}], upgradeDelay: 10},
-                4: {cost: {item0: 350, item1: 200, gold: 200}, up: [{key: "defHp", val: 270}, {key: "armor", val: 4}, {key: "healVal", val: 2}], upgradeDelay: 13},
-                5: {cost: {item0: 420, item1: 300, gold: 300}, up: [{key: "defHp", val: 310}, {key: "armor", val: 5}, {key: "healVal", val: 3}], upgradeDelay: 17}
+                2: {cost: {item0: 400, item1: 200, gold: 200}, up: [{key: "defHp", val: 150}, {key: "armor", val: 3}], upgradeDelay: 7},
+                3: {cost: {item0: 600, item1: 400, gold: 400}, up: [{key: "defHp", val: 200}, {key: "armor", val: 3}, {key: "healVal", val: 2}], upgradeDelay: 10},
+                4: {cost: {item0: 1000, item1: 800, gold: 800}, up: [{key: "defHp", val: 270}, {key: "armor", val: 4}, {key: "healVal", val: 2}], upgradeDelay: 13},
+                5: {cost: {item0: 1500, item1: 1100, gold: 1100}, up: [{key: "defHp", val: 310}, {key: "armor", val: 5}, {key: "healVal", val: 3}], upgradeDelay: 17}
             },
         }
 
